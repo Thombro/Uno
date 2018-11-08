@@ -12,5 +12,7 @@ public class Player {
 	public Player(ArrayList<Card> start) {
 		//should initialize hand with start
 	}
-	public Card getPlayer
+	public Card getPlayerMove() {
+		return null;//TODO: finish this
+	}
 }
