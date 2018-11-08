@@ -6,16 +6,18 @@ public class Deck {
 	private Stack<Card> drawPile;
 	private Stack<Card> discardPile;//it's a stack so we can get the top card
 	/**
-	 * should hold in each color: 
-	 * <ul>	one 0 card, two of 1-9; two Draw Two cards;<br>
-	 * 		two Skip cards; and two Reverse cards.</ul><br>
+	 * should hold in each color:
+	 * <ul>
+	 * 		one 0 card, two of 1-9; two Draw Two cards;<br>
+	 * 		two Skip cards; and two Reverse cards.<br>
+	 * </ul>
 	 * Also it should hold four Wild cards and four Wild Draw Four cards
 	 */
 	Deck(){
 		
 	}
 	/**
-	 * takes a Card from the deck, if it's type is a number then it will return it,
+	 * takes a Card from the deck, if it's type is not wild then it will return it,
 	 * otherwise if it's type is a type of wild, than it will get a new card
 	 */
 	private Card flipInitialCard() {
@@ -35,5 +37,11 @@ public class Deck {
 	 */
 	public Card peekDiscard() {
 		return null;
+	}
+	/**
+	 * @param c the card to add to the discard pile
+	 */
+	public void discard(Card c) {
+		
 	}
 }
