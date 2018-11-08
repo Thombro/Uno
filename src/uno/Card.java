@@ -1,8 +1,16 @@
 package uno;
 
 public class Card {
-	private char color; // can be blue:'b', green:'g', yellow:'y', red:'r', or none:' '(ex. wild)
-	private String type; //can be 0-9, draw 2(Dr2?), skip(Skp?), reverse(Rev?), wild(Wld?), draw 4 wild(D4W?)
+	private char color;
+	private String type;
+	/**
+	 * sets the color and type
+	 * @param color 'y'(yellow), 'g'(green), 'b'(blue), or 'r'(red), or 'w'(wild)
+	 * @param type 0 through 9, dr2(draw 2), skip, rev(reverse), wild, dr4(draw 4 wild)
+	 */
+	public Card(char color, String type) {
+		
+	}
 	/**
 	 * checks if it is a kind of wild, the same color, or the same type
 	 * @param other : the other Card
@@ -17,5 +25,8 @@ public class Card {
 	 */
 	public void setWildColor(char color) {// which sets the card's color if it doesn't already have one
 		
+	}
+	public String getType() {
+		return type;
 	}
 }
