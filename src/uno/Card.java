@@ -1,5 +1,8 @@
 package uno;
 
+/**
+ * add javadoc
+ */
 public class Card {
 	private char color;
 	private String type;
