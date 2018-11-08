@@ -30,4 +30,10 @@ public class Deck {
 	public Card drawCard() {
 		return null;
 	}
+	/**
+	 * @return top card of discard pile
+	 */
+	public Card peekDiscard() {
+		return null;
+	}
 }
