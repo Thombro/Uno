@@ -1,7 +1,12 @@
 package uno;
 
 import java.util.ArrayList;
-
+/**
+ * holds a player's name and hand of Cards.
+ * 
+ * @author Tommy, Daniel, Jed, Izzy, and Grace
+ *
+ */
 public class Player {
 	private ArrayList<Card> hand;//holds the player's cards, starting with 7
 	private String name;
@@ -11,7 +16,7 @@ public class Player {
 	}
 	/**
 	 * asks the player if they want to make a move or draw a card<br>
-	 * if they want to make a move, this removes & returns the move if it canPlayOn(top)<br>
+	 * if they want to make a move, this removes & returns the Card if it can be played on <b>top</b><br>
 	 * if they want to draw a card, this should return null
 	 * @param top : the current card
 	 * @return the card the player chose or null
@@ -21,7 +26,7 @@ public class Player {
 	}
 	/**
 	 * adds the card to the player's hand
-	 * @param c the card
+	 * @param c : the card
 	 */
 	public void add(Card c) {
 		
