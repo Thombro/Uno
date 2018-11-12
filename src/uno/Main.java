@@ -7,6 +7,7 @@ public class Main {
 	 * if so, it calls setup again
 	 */
 	public static void main(String[] args) {
-		
+		Game g = new Game();
+		g.setup();
 	}
 }
