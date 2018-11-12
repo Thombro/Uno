@@ -12,7 +12,9 @@ public class Player {
 	private String name;
 	private boolean saidUno;//default & at the end of every turn false, if the player presses the uno button true
 	public Player(String name) {
-		//should initialize hand, set this.name to name
+		this.name = name;
+		hand = new ArrayList<>();
+		saidUno=false;
 	}
 	/**
 	 * asks the player if they want to make a move or draw a card<br>
@@ -33,5 +35,11 @@ public class Player {
 	}
 	public int handSize() {
 		return hand.size();
+	}
+	public String getName() {
+		return name;
+	}
+	public boolean getSaidUno() {
+		return saidUno;
 	}
 }
