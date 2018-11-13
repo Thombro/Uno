@@ -28,7 +28,7 @@ public class Game {
 		int winPlayer = -1;
 		while(true) {
 			Player p = players.get(currentPlayer);
-			Card move = p.getPlayerMove(topCard);
+			/*Card move = p.getPlayerMove(topCard);
 			if(move == null) {
 				p.add(deck.drawCard());
 			}else {
@@ -38,10 +38,13 @@ public class Game {
 				System.out.println("Congratulations "+p.getName()+", you have won the game!");
 				break;
 			}
-			if(!p.getSaidUno()) {
+			if(!p.getSaidUno()&&p.handSize()==1) {
 				p.add(deck.drawCard());
 				p.add(deck.drawCard());
-			}
+			}*/
+			System.out.println("remove comments and exta break when player and deck work.");
+			currentPlayer = (currentPlayer+1)%players.size();
+			break;
 		}
 	}
 	/**
@@ -79,7 +82,7 @@ public class Game {
 		}
 		System.out.print("\nwhich # player is going first: ");
 		currentPlayer=in.nextInt()-1;
-		in.nextLine();
+		in.close();
 	}
 	/**
 	 * calls menu()<br>
@@ -97,6 +100,6 @@ public class Game {
 				p.add(deck.drawCard());
 			}
 		}
-		//gameLoop();//TODO: remove comments when Deck & Player work
+		gameLoop();
 	}
 }
