@@ -42,4 +42,7 @@ public class Player {
 	public boolean getSaidUno() {
 		return saidUno;
 	}
+	public void setSaidUno(boolean unoSaid) {
+		saidUno = unoSaid;
+	}
 }
