@@ -1,6 +1,7 @@
 package uno;
 
 import java.util.ArrayList;
+import java.util.Random;
 /**
  * holds a player's name and hand of Cards.
  * 
@@ -24,14 +25,14 @@ public class Player {
 	 * @return the card the player chose or null
 	 */
 	public Card getPlayerMove(Card top) {
-		return null;
+		return null;//TODO: finish this
 	}
 	/**
 	 * adds the card to the player's hand
 	 * @param c : the card
 	 */
 	public void add(Card c) {
-		
+		hand.add(c);
 	}
 	public int handSize() {
 		return hand.size();
@@ -44,5 +45,12 @@ public class Player {
 	}
 	public void setSaidUno(boolean unoSaid) {
 		saidUno = unoSaid;
+	}
+	/**
+	 * a method that is called when a wild card is played
+	 * @return what color the wild card should be
+	 */
+	public char getWildColor() {
+		return 'b';//TODO: complete this method
 	}
 }
