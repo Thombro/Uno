@@ -2,6 +2,8 @@ package uno;
 
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import javafx.scene.text.Text;
 /**
  * runs an UNO game when setup() is called
  * holds the players and decks used in the game
@@ -80,18 +82,8 @@ public class Game {
 	 * gets the names and initializes the players
 	 * gets the 1st player and sets currentPlayer
 	 */
-	private void menu() {
-		System.out.println("		Welcome To UNO!");
-		System.out.println("UNO is a game where you try to empty your hand before your opponents.\n");
-		System.out.println("This is how UNO works:\n");
-		System.out.println("Each player is dealt seven cards, the remaining cards forming the draw pile.");
-		System.out.println("Afterwards, the top card of the draw pile is turned over to form the discard pile.\n");
-		System.out.println("The play consists of each player selecting a card from their hand by matching the");
-		System.out.println("colour, number, or word of the top card of the discard pile. A wild card will always work.\n");
-		System.out.println("If a player cannot play any of their cards, they must draw one card from the draw pile");
-		System.out.println("if that card fits the sequence they may play it, otherwise their turn is over.\n");
-		System.out.println("UNO has cards in 4 colors: Red, Blue, Green, and Yellow");
-		System.out.println("It also has 15 numbers/types: 0-9, wild, wild draw 4, skip, reverse, and draw 2\n");
+	public void menu() {
+		
 		Scanner in = new Scanner(System.in);
 		System.out.println("how many people are going to play?");
 		int numPlayers = in.nextInt();
