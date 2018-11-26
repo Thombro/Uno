@@ -130,6 +130,11 @@ public class Game {
 		gameLoop();
 	}
 	private void nextPlayer() {
-		currentPlayer = Math.abs(currentPlayer+direction)%players.size();
+		currentPlayer = currentPlayer+direction;
+		if(currentPlayer == -1) {
+			currentPlayer = players.size()-1;
+		}else {
+			currentPlayer = currentPlayer%players.size();
+		}
 	}
 }
