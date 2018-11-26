@@ -16,6 +16,7 @@ public class Game {
 	private ArrayList<Player> players;//holds the players
 	private Card topCard;//holds the card on top of the discard pile
 	private int currentPlayer;//the current player's index
+	private int direction = 1;//1 if normal, -1 if reverse
 	/**
 	 * in the game loop:
 	 * <ul>
@@ -25,14 +26,41 @@ public class Game {
 	 * </ul>
 	 */
 	private void gameLoop() {
-		int winPlayer = -1;
 		while(true) {
 			Player p = players.get(currentPlayer);
-			/*Card move = p.getPlayerMove(topCard);
+			Card move = p.getPlayerMove(topCard);
 			if(move == null) {
 				p.add(deck.drawCard());
 			}else {
+				if(move.getType() == "rev") {
+					if(players.size() == 2) {
+						nextPlayer();
+					}else {
+						direction = direction*-1;
+					}
+				}
+				if(move.getType() == "skip") {
+					nextPlayer();
+				}
+				if(move.getType() == "dr2") {
+					nextPlayer();
+					Player p2 = players.get(currentPlayer);
+					p2.add(deck.drawCard());
+					p2.add(deck.drawCard());
+				}
+				else if(move.getType() == "wild") {
+					move.setWildColor(p.getWildColor());
+				}
+				else if(move.getType() == "dr4") {
+					nextPlayer();
+					Player p2 = players.get(currentPlayer);
+					for(int i = 0; i<4; i++) {
+						p2.add(deck.drawCard());
+					}
+					move.setWildColor(p.getWildColor());
+				}
 				deck.discard(move);
+				topCard=move;
 			}
 			if(p.handSize() == 0) {
 				System.out.println("Congratulations "+p.getName()+", you have won the game!");
@@ -41,10 +69,9 @@ public class Game {
 			if(!p.getSaidUno()&&p.handSize()==1) {
 				p.add(deck.drawCard());
 				p.add(deck.drawCard());
-			}*/
-			System.out.println("remove comments and exta break when player and deck work.");
-			currentPlayer = (currentPlayer+1)%players.size();
-			break;
+			}
+			p.setSaidUno(false);
+			nextPlayer();
 		}
 	}
 	/**
@@ -101,5 +128,8 @@ public class Game {
 			}
 		}
 		gameLoop();
+	}
+	private void nextPlayer() {
+		currentPlayer = Math.abs(currentPlayer+direction)%players.size();
 	}
 }
