@@ -44,4 +44,22 @@ public class Card {
 	public String getType() {
 		return type;
 	}
+	@Override
+	public String toString() {
+		if(color == 'b') {
+			return "blue "+type;
+		}
+		else if(color == 'r') {
+			return "red "+type;
+		}
+		else if(color == 'g') {
+			return "green "+type;
+		}
+		else if(color == 'y') {
+			return "yellow "+type;
+		}
+		else {
+			return "no color "+type;
+		}
+	}
 }
