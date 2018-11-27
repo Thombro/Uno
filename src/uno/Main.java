@@ -1,13 +1,14 @@
 package uno;
 
 import javafx.application.Application;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.stage.Stage;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 
 
 public class Main extends Application {
@@ -30,7 +31,6 @@ public class Main extends Application {
 		Stage window = primaryStage;
 		
 		//Main Menu Scene
-		
 		Label gameName = new Label("UNO");
 		Button startBtn = new Button("Start Game");
 		startBtn.setOnAction(e -> window.setScene(gamePlay));
@@ -38,11 +38,22 @@ public class Main extends Application {
 		Button ruleBtn = new Button("How to Play");
 		ruleBtn.setOnAction(e -> window.setScene(howToPlay));
 		
-		HBox menuLayout = new HBox(20);
-		menuLayout.getChildren().addAll(gameName, startBtn, ruleBtn);
+		HBox layer1 = new HBox(20);
+		layer1.setAlignment(Pos.CENTER);
+		layer1.getChildren().add(gameName);
 		
-		mainMenu = new Scene(menuLayout, 600, 600);
+		HBox layer2 = new HBox(50);
+		layer2.setAlignment(Pos.CENTER);
+		layer2.getChildren().addAll(startBtn, ruleBtn);
+//		layer2.setStyle("-fx-background-color: #FFFFFF;");
 		
+		VBox menuLayout = new VBox(50);
+		menuLayout.setAlignment(Pos.CENTER);
+		menuLayout.getChildren().addAll(layer1, layer2);
+		
+		mainMenu = new Scene(menuLayout, 500, 400);
+		
+//		How to Play Scene
 		Button backBtn = new Button("Back");
 		backBtn.setOnAction(e -> window.setScene(mainMenu));
 		
@@ -60,6 +71,9 @@ public class Main extends Application {
 		ruleLayout.getChildren().addAll(rules, backBtn);
 		
 		howToPlay = new Scene(ruleLayout, 600, 600);
+		
+//		Game Play Scene
+		
 		
 		window.setScene(mainMenu);
 		window.setTitle("UNO");
