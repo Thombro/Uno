@@ -25,7 +25,18 @@ public class Player {
 	 * @return the card the player chose or null
 	 */
 	public Card getPlayerMove(Card top) {
-		return null;//TODO: finish this
+		Scanner scnr = new Scanner(System.in);
+		System.out.print("Would you like to move or draw a card (m/d)");
+		char input = scnr.next().charAt(0);
+		if (input == 'm') {
+			System.out.println("Which card will you like to play");
+			int numOfCard = scnr.nextInt();
+			hand.get(numOfCard);
+		}
+		else {
+			hand.remove(top);
+		}
+			return null;
 	}
 	/**
 	 * adds the card to the player's hand
@@ -51,6 +62,9 @@ public class Player {
 	 * @return what color the wild card should be
 	 */
 	public char getWildColor() {
-		return 'b';//TODO: complete this method
+		Scanner scnr = new Scanner(System.in);
+		System.out.println("What color would you like:");
+		char b = scnr.next().charAt(0); 
+		return b;
 	}
 }
