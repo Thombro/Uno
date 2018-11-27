@@ -1,10 +1,14 @@
 package uno;
 
+import java.util.ArrayList;
+
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
 import javafx.scene.control.Label;
+import javafx.scene.control.RadioButton;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
@@ -20,6 +24,7 @@ public class Main extends Application {
 	Scene mainMenu;
 	Scene howToPlay;
 	Scene gamePlay;
+	private int numPlayers;
 	
 	public static void main(String[] args) {
 		launch(args);
@@ -29,9 +34,10 @@ public class Main extends Application {
 	public void start(Stage primaryStage) throws Exception {
 		Stage window = primaryStage;
 		
-		//Main Menu Scene
+		//Main Menu
 		
 		Label gameName = new Label("UNO");
+		
 		Button startBtn = new Button("Start Game");
 		startBtn.setOnAction(e -> window.setScene(gamePlay));
 		
@@ -40,14 +46,36 @@ public class Main extends Application {
 		
 		Text playText = new Text("Number of Players");
 		
-		Button play2 = new Button("Two Player");
-		Button play3 = new Button("Three Player");
-		Button play4 = new Button("Four Player");
+		final ToggleGroup groupOfPlayers = new ToggleGroup();
+		
+		RadioButton play2 = new RadioButton("Two Player");
+		play2.setToggleGroup(groupOfPlayers);
+		
+		RadioButton play3 = new RadioButton("Three Player");
+		play3.setToggleGroup(groupOfPlayers);
+		
+		RadioButton play4 = new RadioButton("Four Player");
+		play4.setToggleGroup(groupOfPlayers);
+		
+		if(play2.isSelected()) {
+			numPlayers = 2;
+		}
+		else if(play3.isSelected()) {
+			numPlayers = 3;
+		}
+		else if(play4.isSelected()) {
+			numPlayers = 4;
+		}
+		
+		Game g = new Game(numPlayers);
+		
 		
 		HBox menuLayout = new HBox(20);
 		menuLayout.getChildren().addAll(gameName, playText, play2, play3, play4, startBtn, ruleBtn);
 		
 		mainMenu = new Scene(menuLayout, 600, 600);
+		
+		//How To Play 
 		
 		Button backBtn = new Button("Back");
 		backBtn.setOnAction(e -> window.setScene(mainMenu));
@@ -67,9 +95,14 @@ public class Main extends Application {
 		
 		howToPlay = new Scene(ruleLayout, 600, 600);
 		
+		//Game
+		
 		HBox gameLayout = new HBox(20);
 		
-		gameLayout.getChildren().addAll();
+		Button exit = new Button("Exit Game");
+		exit.setOnAction(e -> window.setScene(mainMenu));
+		
+		gameLayout.getChildren().addAll(exit);
 		
 		gamePlay = new Scene(gameLayout, 600, 600);
 		
@@ -78,5 +111,4 @@ public class Main extends Application {
 		window.show();
 	
 	}	
-		
 }

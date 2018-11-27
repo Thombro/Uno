@@ -3,7 +3,6 @@ package uno;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import javafx.scene.text.Text;
 /**
  * runs an UNO game when setup() is called
  * holds the players and decks used in the game
@@ -11,14 +10,22 @@ import javafx.scene.text.Text;
  *
  */
 public class Game {
-	public static final int MIN_PLAYERS=2;
-	public static final int MAX_PLAYERS=10;
-	public static final int HAND_SIZE=7;
+	//public static final int MIN_PLAYERS = 2;
+	//public static final int MAX_PLAYERS = 10;
+	public static final int HAND_SIZE = 7;
 	private Deck deck;//the discard pile and draw pile
 	private ArrayList<Player> players;//holds the players
 	private Card topCard;//holds the card on top of the discard pile
 	private int currentPlayer;//the current player's index
 	private int direction = 1;//1 if normal, -1 if reverse
+	private int numPlayers;
+	
+	
+	public Game(int selectedNumPlayers) {
+		numPlayers = selectedNumPlayers;
+		players = new ArrayList<>();
+		deck = new Deck();
+	}
 	/**
 	 * in the game loop:
 	 * <ul>
@@ -83,8 +90,12 @@ public class Game {
 	 * gets the 1st player and sets currentPlayer
 	 */
 	public void menu() {
+		for(int i = 0; i < numPlayers; i++) {
+			Player p = new Player("Player" + (i + 1));
+			players.add(p);
+		}
 		
-		Scanner in = new Scanner(System.in);
+		/*Scanner in = new Scanner(System.in);
 		System.out.println("how many people are going to play?");
 		int numPlayers = in.nextInt();
 		in.nextLine();
@@ -93,15 +104,15 @@ public class Game {
 			numPlayers=in.nextInt();
 			in.nextLine();
 		}
-		for(int i = 0; i<numPlayers; i++) {
+		for(int i = 0; i < numPlayers; i++) {
 			System.out.print("what is the name of player "+(i+1)+": ");
 			String name = in.nextLine();
 			Player p = new Player(name);
 			players.add(p);
 		}
 		System.out.print("\nwhich # player is going first: ");
-		currentPlayer=in.nextInt()-1;
-		in.close();
+		currentPlayer = in.nextInt()-1;
+		in.close(); */
 	}
 	/**
 	 * calls menu()<br>
@@ -110,23 +121,23 @@ public class Game {
 	 * calls gameLoop()
 	 */
 	public void setup() {
-		deck = new Deck();
-		topCard=deck.peekDiscard();
-		players = new ArrayList<>();
+		//deck = new Deck();
+		topCard = deck.peekDiscard();
+		//players = new ArrayList<>();
 		menu();
 		for(Player p : players) {
-			for(int i=0; i<HAND_SIZE; i++) {
+			for(int i=0; i < HAND_SIZE; i++) {
 				p.add(deck.drawCard());
 			}
 		}
 		gameLoop();
 	}
 	private void nextPlayer() {
-		currentPlayer = currentPlayer+direction;
+		currentPlayer = currentPlayer + direction;
 		if(currentPlayer == -1) {
-			currentPlayer = players.size()-1;
+			currentPlayer = players.size() - 1;
 		}else {
-			currentPlayer = currentPlayer%players.size();
+			currentPlayer = currentPlayer % players.size();
 		}
 	}
 }
