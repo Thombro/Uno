@@ -25,6 +25,7 @@ public class Player {
 	 * @return the card the player chose or null
 	 */
 	public Card getPlayerMove(Card top) {
+		// I added this to the code
 		Scanner scnr = new Scanner(System.in);
 		System.out.print("Would you like to move or draw a card (m/d)");
 		char input = scnr.next().charAt(0);
@@ -62,6 +63,7 @@ public class Player {
 	 * @return what color the wild card should be
 	 */
 	public char getWildColor() {
+		// I added this to the code
 		Scanner scnr = new Scanner(System.in);
 		System.out.println("What color would you like:");
 		char b = scnr.next().charAt(0); 
