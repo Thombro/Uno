@@ -19,15 +19,19 @@ public class Game {
 	private int currentPlayer;//the current player's index
 	private int direction = 1;//1 if normal, -1 if reverse
 	private int numPlayers;
+	private boolean console;
 	
 	public Game() {
+		numPlayers = 0;
 		players = new ArrayList<>();
 		deck = new Deck();
+		console = true;
 	}
 	public Game(int selectedNumPlayers) {
 		numPlayers = selectedNumPlayers;
 		players = new ArrayList<>();
 		deck = new Deck();
+		console = false;
 	}
 	/**
 	 * in the game loop:
@@ -41,47 +45,61 @@ public class Game {
 		while(true) {
 			Player p = players.get(currentPlayer);
 			Card move = p.getPlayerMove(topCard);
+			
 			if(move == null) {
 				p.add(deck.drawCard());
-			}else {
+			}
+			
+			else {
 				if(move.getType() == "rev") {
 					if(players.size() == 2) {
 						nextPlayer();
-					}else {
+					}
+					
+					else {
 						direction = direction*-1;
 					}
 				}
+				
 				if(move.getType() == "skip") {
 					nextPlayer();
 				}
+				
 				if(move.getType() == "dr2") {
 					nextPlayer();
 					Player p2 = players.get(currentPlayer);
 					p2.add(deck.drawCard());
 					p2.add(deck.drawCard());
 				}
+				
 				else if(move.getType() == "wild") {
 					move.setWildColor(p.getWildColor());
 				}
+				
 				else if(move.getType() == "dr4") {
 					nextPlayer();
 					Player p2 = players.get(currentPlayer);
 					for(int i = 0; i<4; i++) {
 						p2.add(deck.drawCard());
 					}
+					
 					move.setWildColor(p.getWildColor());
 				}
+				
 				deck.discard(move);
-				topCard=move;
+				topCard = move;
 			}
+			
 			if(p.handSize() == 0) {
-				System.out.println("Congratulations "+p.getName()+", you have won the game!");
+				System.out.println("Congratulations " + p.getName() + ", you have won the game!");
 				break;
 			}
-			if(!p.getSaidUno()&&p.handSize()==1) {
+			
+			if(!p.getSaidUno() && p.handSize() == 1) {
 				p.add(deck.drawCard());
 				p.add(deck.drawCard());
 			}
+			
 			p.setSaidUno(false);
 			nextPlayer();
 		}
@@ -94,30 +112,25 @@ public class Game {
 	 */
 	public void menu() {
 		
-		for(int i = 0; i < numPlayers; i++) {
-			Player p = new Player("Player" + (i + 1));
-			players.add(p);
+		if(console) {
+			Scanner in = new Scanner(System.in);
+			System.out.println("How many people are going to play?");
+			numPlayers = in.nextInt();
+			
+			//this will only run if they input a number that is outside of the correct number range of players
+			while(numPlayers < MIN_PLAYERS || numPlayers > MAX_PLAYERS) {
+				System.out.println("Please enter a valid number between " + MIN_PLAYERS + " and " + MAX_PLAYERS);
+				numPlayers = in.nextInt();
+			}
 		}
 		
-		Scanner in = new Scanner(System.in);
-		System.out.println("how many people are going to play?");
-		int numPlayers = in.nextInt();
-		in.nextLine();
-		while (numPlayers < MIN_PLAYERS || numPlayers > MAX_PLAYERS) {//this will only run if they input a number that is outside of the correct number range of players
-			System.out.println("please enter a number between "+ MIN_PLAYERS +" and "+ MAX_PLAYERS);
-			numPlayers = in.nextInt();
-			in.nextLine();
-		}
 		for(int i = 0; i < numPlayers; i++) {
-			System.out.print("what is the name of player "+(i+1)+": ");
-			String name = in.nextLine();
-			Player p = new Player(name);
-			players.add(p);
+				Player p = new Player("Player" + (i + 1));
+				players.add(p);
 		}
-		System.out.print("\nwhich # player is going first: ");
-		currentPlayer = in.nextInt()-1;
-		in.close();
+	
 	}
+	
 	/**
 	 * calls menu()<br>
 	 * initializes deck and gives the players 7 cards each,<br>
@@ -137,9 +150,12 @@ public class Game {
 	
 	private void nextPlayer() {
 		currentPlayer = currentPlayer + direction;
+		
 		if(currentPlayer == -1) {
 			currentPlayer = players.size() - 1;
-		}else {
+		}
+		
+		else {
 			currentPlayer = currentPlayer % players.size();
 		}
 	}

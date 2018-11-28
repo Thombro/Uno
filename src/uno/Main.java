@@ -43,6 +43,7 @@ public class Main extends Application {
 			}
 		}
 		
+		
 		if(gui) {
 			launch(args);
 		}
