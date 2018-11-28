@@ -10,8 +10,8 @@ import java.util.Scanner;
  *
  */
 public class Game {
-	//public static final int MIN_PLAYERS = 2;
-	//public static final int MAX_PLAYERS = 10;
+	public static final int MIN_PLAYERS = 2;
+	public static final int MAX_PLAYERS = 4;
 	public static final int HAND_SIZE = 7;
 	private Deck deck;//the discard pile and draw pile
 	private ArrayList<Player> players;//holds the players
@@ -20,7 +20,10 @@ public class Game {
 	private int direction = 1;//1 if normal, -1 if reverse
 	private int numPlayers;
 	
-	
+	public Game() {
+		players = new ArrayList<>();
+		deck = new Deck();
+	}
 	public Game(int selectedNumPlayers) {
 		numPlayers = selectedNumPlayers;
 		players = new ArrayList<>();
@@ -90,18 +93,19 @@ public class Game {
 	 * gets the 1st player and sets currentPlayer
 	 */
 	public void menu() {
+		
 		for(int i = 0; i < numPlayers; i++) {
 			Player p = new Player("Player" + (i + 1));
 			players.add(p);
 		}
 		
-		/*Scanner in = new Scanner(System.in);
+		Scanner in = new Scanner(System.in);
 		System.out.println("how many people are going to play?");
 		int numPlayers = in.nextInt();
 		in.nextLine();
-		while (numPlayers<MIN_PLAYERS || numPlayers>MAX_PLAYERS) {//this will only run if they input a number that is outside of the correct number range of players
-			System.out.println("please enter a number between "+MIN_PLAYERS+" and "+MAX_PLAYERS);
-			numPlayers=in.nextInt();
+		while (numPlayers < MIN_PLAYERS || numPlayers > MAX_PLAYERS) {//this will only run if they input a number that is outside of the correct number range of players
+			System.out.println("please enter a number between "+ MIN_PLAYERS +" and "+ MAX_PLAYERS);
+			numPlayers = in.nextInt();
 			in.nextLine();
 		}
 		for(int i = 0; i < numPlayers; i++) {
@@ -112,7 +116,7 @@ public class Game {
 		}
 		System.out.print("\nwhich # player is going first: ");
 		currentPlayer = in.nextInt()-1;
-		in.close(); */
+		in.close();
 	}
 	/**
 	 * calls menu()<br>
@@ -121,9 +125,7 @@ public class Game {
 	 * calls gameLoop()
 	 */
 	public void setup() {
-		//deck = new Deck();
 		topCard = deck.peekDiscard();
-		//players = new ArrayList<>();
 		menu();
 		for(Player p : players) {
 			for(int i=0; i < HAND_SIZE; i++) {
@@ -132,6 +134,7 @@ public class Game {
 		}
 		gameLoop();
 	}
+	
 	private void nextPlayer() {
 		currentPlayer = currentPlayer + direction;
 		if(currentPlayer == -1) {

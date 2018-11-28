@@ -2,6 +2,7 @@ package uno;
 
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.Scanner;
 /**
  * holds a player's name and hand of Cards.
  * 
@@ -32,7 +33,7 @@ public class Player {
 		if (input == 'm') {
 			System.out.println("Which card will you like to play");
 			int numOfCard = scnr.nextInt();
-				hand.get(numOfCard);
+			hand.get(numOfCard);
 		}
 		else {
 			hand.remove(top);

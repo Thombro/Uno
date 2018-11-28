@@ -1,6 +1,6 @@
 package uno;
 
-import java.util.ArrayList;
+import java.util.Scanner;
 
 import javafx.application.Application;
 import javafx.scene.Scene;
@@ -27,7 +27,29 @@ public class Main extends Application {
 	private int numPlayers;
 	
 	public static void main(String[] args) {
-		launch(args);
+		boolean gui = false;
+		boolean incorrectEnter = true;
+		Scanner scnr = new Scanner(System.in);
+		while(incorrectEnter) {
+			System.out.println("Please enter c to play on the console or g to play on the graphic user interface.");
+			char choice = scnr.next().charAt(0);
+		
+			if(choice == 'G' || choice == 'g') {
+				gui = true;
+				incorrectEnter = false;
+			}
+			else if(choice == 'c' || choice == 'C') {
+				incorrectEnter = false;
+			}
+		}
+		
+		if(gui) {
+			launch(args);
+		}
+		else {
+			Game newGame = new Game();
+			newGame.setup();
+		}
 	}
 
 	@Override
