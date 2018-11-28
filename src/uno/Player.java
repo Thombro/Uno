@@ -32,12 +32,12 @@ public class Player {
 		if (input == 'm') {
 			System.out.println("Which card will you like to play");
 			int numOfCard = scnr.nextInt();
-			hand.get(numOfCard);
+				hand.get(numOfCard);
 		}
 		else {
 			hand.remove(top);
-		}
 			return null;
+		}	
 	}
 	/**
 	 * adds the card to the player's hand
