@@ -7,16 +7,15 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
-import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.ToggleGroup;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
+import javafx.scene.text.TextAlignment;
 
 
 public class Main extends Application {
@@ -64,7 +63,11 @@ public class Main extends Application {
 		
 		//Main Menu
 		
-		Label gameName = new Label("UNO");
+		Text gameName = new Text("UNO");
+		gameName.setFont(Font.font("Serif", 100));
+		gameName.setFill(Color.YELLOW);
+		gameName.setStrokeWidth(1.5);
+		gameName.setStroke(Color.BLACK);
 		
 		Button startBtn = new Button("Start Game");
 		startBtn.setOnAction(e -> window.setScene(gamePlay));
@@ -73,6 +76,7 @@ public class Main extends Application {
 		ruleBtn.setOnAction(e -> window.setScene(howToPlay));
 		
 		Text playText = new Text("Number of Players");
+		playText.setFont(Font.font("Serif", 15));
 		
 		final ToggleGroup groupOfPlayers = new ToggleGroup();
 		
@@ -98,19 +102,17 @@ public class Main extends Application {
 		Game g = new Game(numPlayers);
 		
 		StackPane background = new StackPane();
-		background.setStyle("-fx-background-color: RED;");
+		background.setStyle("-fx-background-color: DARKRED;");
 		
 		HBox gameTitle = new HBox(20);
-		gameName.setFont(Font.font("Serif", 40));
-		gameName.setTextFill(Color.YELLOW);
 		gameTitle.getChildren().add(gameName);
 		gameTitle.setAlignment(Pos.CENTER);
 		
-		HBox playerNumber = new HBox(20);
+		HBox playerNumber = new HBox(40);
 		playerNumber.getChildren().addAll(play2, play3, play4);
 		playerNumber.setAlignment(Pos.CENTER);
 		
-		HBox buttons = new HBox(20);
+		HBox buttons = new HBox(40);
 		buttons.getChildren().addAll(startBtn, ruleBtn);
 		buttons.setAlignment(Pos.CENTER);
 		
@@ -135,13 +137,24 @@ public class Main extends Application {
 				+ "color, number, or word of the top card of the discard pile. A wild card will always work.\n"
 				+ "If a player cannot play any of their cards, they must draw one card from the draw pile"
 				+ "if that card fits the sequence they may play it, otherwise their turn is over.\n"
-				+ "UNO has cards in four colors: red, blue, green, and yellow"
+				+ "UNO has cards in four colors: red, blue, green, and yellow.\n"
 				+ "It also has fifteen numbers and types: 0-9, wild, wild draw 4, skip, reverse, and draw 2.");
-
-		VBox ruleLayout = new VBox(20);
-		ruleLayout.getChildren().addAll(rules, backBtn);
+		rules.setFont(Font.font("Serif", 20));
+		rules.setWrappingWidth(500);
+		rules.setTextAlignment(TextAlignment.JUSTIFY);
 		
-		howToPlay = new Scene(ruleLayout, 600, 600);
+		StackPane htpBackground = new StackPane();
+		htpBackground.setStyle("-fx-background-color: LIGHTBLUE;");
+		
+		HBox back = new HBox(40);
+		back.getChildren().add(backBtn);
+		
+		VBox ruleLayout = new VBox(50);
+		ruleLayout.getChildren().addAll(rules, back);
+		
+		htpBackground.getChildren().add(ruleLayout);
+		
+		howToPlay = new Scene(htpBackground, 600, 600);
 		
 		//Game
 		
