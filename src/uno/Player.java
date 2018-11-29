@@ -36,6 +36,7 @@ public class Player {
 			System.out.println("Which card will you like to play");
 			int numOfCard = scnr.nextInt();
 			hand.get(numOfCard);
+			return null;
 		}
 		else {
 			hand.remove(top);
