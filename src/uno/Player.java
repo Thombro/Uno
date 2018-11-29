@@ -30,7 +30,7 @@ public class Player {
 	public Card getPlayerMove(Card top) {
 		// I added this to the code
 		Scanner scnr = new Scanner(System.in);
-		System.out.print("Would you like to move or draw a card (m/d)");
+		System.out.print(name + " would you like to move or draw a card (m/d)");
 		char input = scnr.next().charAt(0);
 		if (input == 'm') {
 			System.out.println("Which card will you like to play");

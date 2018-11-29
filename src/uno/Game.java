@@ -125,7 +125,7 @@ public class Game {
 		}
 		
 		for(int i = 0; i < numPlayers; i++) {
-				Player p = new Player("Player" + (i + 1));
+				Player p = new Player("Player " + (i + 1));
 				players.add(p);
 		}
 	
@@ -141,7 +141,7 @@ public class Game {
 		topCard = deck.peekDiscard();
 		menu();
 		for(Player p : players) {
-			for(int i=0; i < HAND_SIZE; i++) {
+			for(int i = 0; i < HAND_SIZE; i++) {
 				p.add(deck.drawCard());
 			}
 		}

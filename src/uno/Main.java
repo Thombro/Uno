@@ -3,14 +3,19 @@ package uno;
 import java.util.Scanner;
 
 import javafx.application.Application;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
 
@@ -92,11 +97,31 @@ public class Main extends Application {
 		
 		Game g = new Game(numPlayers);
 		
+		StackPane background = new StackPane();
+		background.setStyle("-fx-background-color: RED;");
 		
-		HBox menuLayout = new HBox(20);
-		menuLayout.getChildren().addAll(gameName, playText, play2, play3, play4, startBtn, ruleBtn);
+		HBox gameTitle = new HBox(20);
+		gameName.setFont(Font.font("Serif", 40));
+		gameName.setTextFill(Color.YELLOW);
+		gameTitle.getChildren().add(gameName);
+		gameTitle.setAlignment(Pos.CENTER);
 		
-		mainMenu = new Scene(menuLayout, 600, 600);
+		HBox playerNumber = new HBox(20);
+		playerNumber.getChildren().addAll(play2, play3, play4);
+		playerNumber.setAlignment(Pos.CENTER);
+		
+		HBox buttons = new HBox(20);
+		buttons.getChildren().addAll(startBtn, ruleBtn);
+		buttons.setAlignment(Pos.CENTER);
+		
+		VBox menuLayout = new VBox(20);
+		menuLayout.getChildren().addAll(gameName, playText, playerNumber, buttons);
+		menuLayout.setAlignment(Pos.CENTER);
+		
+		background.getChildren().add(menuLayout);
+		
+		
+		mainMenu = new Scene(background, 600, 600);
 		
 		//How To Play 
 		
