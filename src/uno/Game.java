@@ -45,7 +45,7 @@ public class Game {
 		while(true) {
 			Player p = players.get(currentPlayer);
 			Card move = p.getPlayerMove(topCard);
-			
+			//move.setWildColor(p.getWildColor());
 			if(move == null) {
 				p.add(deck.drawCard());
 			}

@@ -3,6 +3,8 @@ package uno;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
+import javafx.scene.paint.Color;
+
 /**
  * holds a player's name and hand of Cards.
  * 
@@ -63,11 +65,24 @@ public class Player {
 	 * a method that is called when a wild card is played
 	 * @return what color the wild card should be
 	 */
-	public char getWildColor() {
+	public Color getWildColor() {
 		// I added this to the code
 		Scanner scnr = new Scanner(System.in);
-		System.out.println("What color would you like:");
-		char b = scnr.next().charAt(0); 
-		return b;
+		System.out.println("What color would you like: enter g for green, b for blue, r for red, and y for yellow");
+		char a = scnr.next().charAt(0); 
+		Color color = null;
+		if(a == 'g') {
+			color = Color.GREEN;
+		}
+		if(a == 'b') {
+			color = Color.BLUE;
+		}
+		if(a == 'r') {
+			color = Color.RED;
+		}
+		if(a == 'y') {
+			color = Color.YELLOW;
+		}
+		return color;
 	}
 }
