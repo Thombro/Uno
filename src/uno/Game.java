@@ -83,7 +83,6 @@ public class Game {
 	 * gets the 1st player and sets currentPlayer
 	 */
 	public void menu() {
-		
 		Scanner in = new Scanner(System.in);
 		System.out.println("how many people are going to play?");
 		int numPlayers = in.nextInt();
