@@ -21,6 +21,7 @@ public class Game {
 	private int numPlayers;
 	private boolean console;
 	
+	
 	public Game() {
 		numPlayers = 0;
 		players = new ArrayList<>();
@@ -111,17 +112,6 @@ public class Game {
 	 * gets the 1st player and sets currentPlayer
 	 */
 	public void menu() {
-
-		Scanner in = new Scanner(System.in);
-		System.out.println("how many people are going to play?");
-		int numPlayers = in.nextInt();
-		in.nextLine();
-		while (numPlayers<MIN_PLAYERS || numPlayers>MAX_PLAYERS) {//this will only run if they input a number that is outside of the correct number range of players
-			System.out.println("please enter a number between "+MIN_PLAYERS+" and "+MAX_PLAYERS);
-			numPlayers=in.nextInt();
-			in.nextLine();
-
-		
 		if(console) {
 			Scanner in = new Scanner(System.in);
 			System.out.println("How many people are going to play?");
@@ -132,12 +122,11 @@ public class Game {
 				System.out.println("Please enter a valid number between " + MIN_PLAYERS + " and " + MAX_PLAYERS);
 				numPlayers = in.nextInt();
 			}
-
 		}
 		
 		for(int i = 0; i < numPlayers; i++) {
-			Player p = new Player("Player " + (i + 1));
-			players.add(p);
+				Player p = new Player("Player " + (i + 1));
+				players.add(p);
 		}
 	
 	}

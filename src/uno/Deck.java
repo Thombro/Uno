@@ -1,5 +1,7 @@
 package uno;
 
+import java.awt.Color;
+import java.util.Collections;
 import java.util.Stack;
 /**
  * holds the discard pile and draw pile from an UNO game
@@ -18,6 +20,28 @@ public class Deck {
 	 * the draw pile should also hold four Wild cards and four Wild Draw Four cards
 	 */
 	Deck(){
+		drawPile = new Stack<>();
+		discardPile = new Stack<>();
+		
+		Color[] colors = {new Color(255,0,0), new Color(0,128,255), new Color(128,255,0), new Color(255,255,0), new Color(120,120,120)};
+		
+//		Loops through each color
+		for (int c = 0; c < 4; c++) {
+			drawPile.add(new Card(colors[c].getRed(), colors[c].getGreen(), colors[c].getBlue(), "0"));
+//			Loops through each number
+			for (int i = 1; i <= 9; i++) {
+				drawPile.add(new Card(colors[c].getRed(), colors[c].getGreen(), colors[c].getBlue(), Integer.toString(i)));
+			}
+			for (int i = 0; i < 2; i++) {
+				drawPile.add(new Card(colors[c].getRed(), colors[c].getGreen(), colors[c].getBlue(), "Skip"));
+				drawPile.add(new Card(colors[c].getRed(), colors[c].getGreen(), colors[c].getBlue(), "Reverse"));
+			}
+		}
+		for (int i = 0; i < 4; i++) {
+			drawPile.add(new Card(colors[4].getRed(), colors[4].getGreen(), colors[4].getBlue(), "Wild"));
+			drawPile.add(new Card(colors[4].getRed(), colors[4].getGreen(), colors[4].getBlue(), "Wild Draw Four"));
+		}
+		Collections.shuffle(drawPile);
 		flipInitialCard();
 	}
 	/**
