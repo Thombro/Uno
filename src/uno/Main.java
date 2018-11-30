@@ -1,6 +1,5 @@
 package uno;
 
-import java.util.ArrayList;
 import java.util.Scanner;
 
 import javafx.application.Application;
@@ -31,6 +30,7 @@ public class Main extends Application {
 	Scene howToPlay;
 	Scene gamePlay;
 	private int numPlayers;
+	public Game newGame;
 	
 	public static void main(String[] args) {
 		boolean gui = false;
@@ -54,8 +54,8 @@ public class Main extends Application {
 			launch(args);
 		}
 		else {
-			Game newGame = new Game();
-			newGame.setup();
+			Game g = new Game();
+			gameLoop();
 		}
 	}
 
@@ -100,6 +100,8 @@ public class Main extends Application {
 		else if(play4.isSelected()) {
 			numPlayers = 4;
 		}
+		
+		Game g = new Game(numPlayers);
 		
 		StackPane background = new StackPane();
 		background.setStyle("-fx-background-color: DARKRED;");
@@ -156,8 +158,6 @@ public class Main extends Application {
 		
 		howToPlay = new Scene(htpBackground, 600, 600);
 		
-		//Game
-		
 		Group root = new Group();
 		
 		Button exit = new Button("Exit Game");
@@ -171,9 +171,7 @@ public class Main extends Application {
 		HBox layoutHand = new HBox(20);
 		root.getChildren().add(layoutHand);
 		
-		Game g = new Game(numPlayers);
-		
-		g.setup();
+		//g.setup();
 		
 		gamePlay = new Scene(root, 600, 600);
 		
@@ -182,4 +180,16 @@ public class Main extends Application {
 		window.show();
 	
 	}	
+	
+	private void gameLoop() {
+		newGame.setup();
+		
+		while(!newGame.hasWon()) {
+			
+			newGame.playTurn();
+			
+		}
+		
+		Text winner = new Text(newGame.getCurrentPlayer() + " has won!!");
+	}
 }
