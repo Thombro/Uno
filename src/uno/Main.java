@@ -1,9 +1,11 @@
 package uno;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 import javafx.application.Application;
 import javafx.geometry.Pos;
+import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
@@ -158,14 +160,22 @@ public class Main extends Application {
 		
 		//Game
 		
-		HBox gameLayout = new HBox(20);
+		Group root = new Group();
 		
 		Button exit = new Button("Exit Game");
 		exit.setOnAction(e -> window.setScene(mainMenu));
 		
-		gameLayout.getChildren().addAll(exit);
+		root.getChildren().add(exit);
 		
-		gamePlay = new Scene(gameLayout, 600, 600);
+		HBox layoutDeck = new HBox(20);
+		root.getChildren().add(layoutDeck);
+		
+		HBox layoutHand = new HBox(20);
+		root.getChildren().add(layoutHand);
+		
+		//g.setup();
+		
+		gamePlay = new Scene(root, 600, 600);
 		
 		window.setScene(mainMenu);
 		window.setTitle("UNO");

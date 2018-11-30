@@ -74,7 +74,7 @@ public class Game {
 				}
 				
 				else if(move.getType() == "wild") {
-					move.setWildColor(p.getWildColor());
+					//move.setWildColor(p.getWildColor());
 				}
 				
 				else if(move.getType() == "dr4") {
@@ -84,7 +84,7 @@ public class Game {
 						p2.add(deck.drawCard());
 					}
 					
-					move.setWildColor(p.getWildColor());
+				//	move.setWildColor(p.getWildColor());
 				}
 				
 				deck.discard(move);
@@ -158,5 +158,8 @@ public class Game {
 		else {
 			currentPlayer = currentPlayer % players.size();
 		}
+	}
+	public Player getCurrentPlayer() {
+		return players.get(currentPlayer);
 	}
 }

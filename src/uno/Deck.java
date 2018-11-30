@@ -23,7 +23,7 @@ public class Deck {
 		drawPile = new Stack<>();
 		discardPile = new Stack<>();
 		
-		Color[] colors = {new Color(255,0,0), new Color(0,128,255), new Color(128,255,0), new Color(255,255,0), new Color(120,120,120)};
+		/*Color[] colors = {new Color(255,0,0), new Color(0,128,255), new Color(128,255,0), new Color(255,255,0), new Color(120,120,120)};
 		
 //		Loops through each color
 		for (int c = 0; c < 4; c++) {
@@ -42,7 +42,7 @@ public class Deck {
 			drawPile.add(new Card(colors[4].getRed(), colors[4].getGreen(), colors[4].getBlue(), "Wild Draw Four"));
 		}
 		Collections.shuffle(drawPile);
-		flipInitialCard();
+		flipInitialCard(); */
 	}
 	/**
 	 * moves a Card from the the draw pile to the discard pile, 
