@@ -173,7 +173,7 @@ public class Main extends Application {
 		HBox layoutHand = new HBox(20);
 		root.getChildren().add(layoutHand);
 		
-		//g.setup();
+		g.setup();
 		
 		gamePlay = new Scene(root, 600, 600);
 		
