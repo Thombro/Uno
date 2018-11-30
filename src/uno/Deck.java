@@ -1,8 +1,10 @@
 package uno;
 
-import java.awt.Color;
+
 import java.util.Collections;
 import java.util.Stack;
+
+import javafx.scene.paint.Color;
 /**
  * holds the discard pile and draw pile from an UNO game
  * @author Tommy, Daniel, Jed, Izzy, and Grace
@@ -23,33 +25,36 @@ public class Deck {
 		drawPile = new Stack<>();
 		discardPile = new Stack<>();
 		
-		/*Color[] colors = {new Color(255,0,0), new Color(0,128,255), new Color(128,255,0), new Color(255,255,0), new Color(120,120,120)};
+		Color[] colors = {Color.RED, Color.GREEN, Color.BLUE, Color.YELLOW, Color.rgb(120,120,120)};
 		
 //		Loops through each color
 		for (int c = 0; c < 4; c++) {
-			drawPile.add(new Card(colors[c].getRed(), colors[c].getGreen(), colors[c].getBlue(), "0"));
+			drawPile.add(new Card(colors[c], "0"));
 //			Loops through each number
 			for (int i = 1; i <= 9; i++) {
-				drawPile.add(new Card(colors[c].getRed(), colors[c].getGreen(), colors[c].getBlue(), Integer.toString(i)));
+				drawPile.add(new Card(colors[c], i+""));
 			}
 			for (int i = 0; i < 2; i++) {
-				drawPile.add(new Card(colors[c].getRed(), colors[c].getGreen(), colors[c].getBlue(), "Skip"));
-				drawPile.add(new Card(colors[c].getRed(), colors[c].getGreen(), colors[c].getBlue(), "Reverse"));
+				drawPile.add(new Card(colors[c], "skp"));
+				drawPile.add(new Card(colors[c], "rev"));
 			}
 		}
 		for (int i = 0; i < 4; i++) {
-			drawPile.add(new Card(colors[4].getRed(), colors[4].getGreen(), colors[4].getBlue(), "Wild"));
-			drawPile.add(new Card(colors[4].getRed(), colors[4].getGreen(), colors[4].getBlue(), "Wild Draw Four"));
+			drawPile.add(new Card(colors[4], "wild"));
+			drawPile.add(new Card(colors[4], "dr4"));
 		}
 		Collections.shuffle(drawPile);
-		flipInitialCard(); */
+		flipInitialCard();
 	}
 	/**
 	 * moves a Card from the the draw pile to the discard pile, 
-	 * if it's type is wild then it will move a new card to raplace it
+	 * if it's type is wild then it will move a new card to replace it
 	 */
 	private void flipInitialCard() {
-		
+		discardPile.add(drawPile.pop());
+		while(discardPile.peek().getType() == "wild" || discardPile.peek().getType() == "dr4") {
+			discardPile.add(drawPile.pop());
+		}
 	}
 	/**
 	 * removes and returns the top Card from the draw pile<br>
@@ -63,19 +68,33 @@ public class Deck {
 	 * @return the card
 	 */
 	public Card drawCard() {
-		return null;//what if everyone only draws cards and never plays any?
+		if (!drawPile.isEmpty()) {
+			return drawPile.pop();
+		}
+		else {
+			drawPile=discardPile;
+			discardPile = new Stack<Card>();
+			discardPile.add(drawPile.pop());
+			Collections.shuffle(drawPile);
+			if(!drawPile.isEmpty()) {
+				return drawPile.pop();
+			}else{
+				System.out.println("draw pile is empty");
+				return null;
+			}
+		}
 	}
 	/**
 	 * @return top card of discard pile
 	 */
 	public Card peekDiscard() {
-		return null;
+		return discardPile.peek();
 	}
 	/**
 	 * adds a card to the discard pile
 	 * @param c the card
 	 */
 	public void discard(Card c) {
-		
+		discardPile.add(c);
 	}
 }
