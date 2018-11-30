@@ -1,56 +1,84 @@
 package uno;
 
-import java.util.ArrayList;
-import java.util.Random;
-/**
- * holds a player's name and hand of Cards.
- * 
- * @author Tommy, Daniel, Jed, Izzy, and Grace
- *
- */
+import javafx.scene.paint.Color;
+import java.util.*;
+
 public class Player {
-	private ArrayList<Card> hand;//holds the player's cards, starting with 7
+	private ArrayList<Card> hand;
 	private String name;
-	private boolean saidUno;//default & at the end of every turn false, if the player presses the uno button true
+	private boolean saidUno;
+	
 	public Player(String name) {
 		this.name = name;
 		hand = new ArrayList<>();
-		saidUno=false;
+		saidUno = false;
 	}
-	/**
-	 * asks the player if they want to make a move or draw a card<br>
-	 * if they want to make a move, this removes & returns the Card if it can be played on <b>top</b><br>
-	 * if they want to draw a card, this should return null
-	 * @param top : the current card
-	 * @return the card the player chose or null
-	 */
-	public Card getPlayerMove(Card top) {
-		return null;//TODO: finish this
+	
+	public Card getPlayerMove(Card top, Scanner scnr) {
+		System.out.print("Would you like to move or draw a card (m/d)");
+		char input = scnr.next().charAt(0);
+		if (input == 'm') {
+			for(int i = 0; i < hand.size(); ++i) {
+				System.out.println((i + 1) + " " + hand.get(i));
+				}
+			
+			System.out.println("Which card will you like to play" + "(1 -" + hand.size() + ")");
+			int numOfCard = scnr.nextInt();
+			
+				while (hand.get(numOfCard - 1).canPlayOn(top)) {
+					System.out.println("Which card will you like to play" + "(1 -" + hand.size() + ")");
+					numOfCard = scnr.nextInt();
+					
+						if (hand.get(numOfCard).getType() == "wild" || hand.get(numOfCard).getType() == "dr4") {
+							System.out.println("What color would you like:");
+							char b = scnr.next().charAt(0);
+							
+							if(b == 'b') {
+								hand.get(numOfCard).setWildColor(Color.BLUE);
+							}
+							if(b == 'g') {
+								hand.get(numOfCard).setWildColor(Color.GREEN);
+							}
+							if(b == 'r') {
+								hand.get(numOfCard).setWildColor(Color.RED);
+							}
+							if (b == 'y') {
+								hand.get(numOfCard).setWildColor(Color.YELLOW);
+							}
+						}
+					}
+				
+				hand.remove(numOfCard - 1);
+				return hand.get(numOfCard - 1);
+		}
+		else {
+			return null;
+		}
 	}
-	/**
-	 * adds the card to the player's hand
-	 * @param c : the card
-	 */
+	
 	public void add(Card c) {
-		hand.add(c);
+		if (c != null) {
+			hand.add(c);
+		}
 	}
+	
 	public int handSize() {
 		return hand.size();
 	}
+	
 	public String getName() {
 		return name;
 	}
+	
 	public boolean getSaidUno() {
 		return saidUno;
 	}
+	
 	public void setSaidUno(boolean unoSaid) {
 		saidUno = unoSaid;
 	}
-	/**
-	 * a method that is called when a wild card is played
-	 * @return what color the wild card should be
-	 */
-	public char getWildColor() {
-		return 'b';//TODO: complete this method
+	
+	public ArrayList<Card> getHand() {
+		return hand;
 	}
 }
