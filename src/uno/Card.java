@@ -66,10 +66,10 @@ public class Card extends Parent{
 	 * @return whether this Card can be played on top of other
 	 */
 	public boolean canPlayOn(Card other) {
-		if(type=="wild") {
+		if(type=="wild" || type=="dr4") {
 			return true;
 		}
-		else if(this.type.equals(other.type)||this.color==other.color) {
+		else if(this.type.equals(other.type)||this.color.equals(other.color)) {
 			return true;
 		}
 		else {
@@ -81,29 +81,29 @@ public class Card extends Parent{
 	 * @param color : the color to change the card to
 	 */
 	public void setWildColor(Color color) {
-		if(this.type == "wild") {
+		if(this.type == "wild" || type=="dr4") {
 			this.color = color;
 		}
 	}
 	public String getType() {
 		return type;
 	}
-/*	@Override
+	@Override
 	public String toString() {
-		if(color == 'b') {
+		if(color.equals(Color.BLUE)) {
 			return "blue "+type;
 		}
-		else if(color == 'r') {
+		else if(color.equals(Color.RED)) {
 			return "red "+type;
 		}
-		else if(color == 'g') {
+		else if(color.equals(Color.GREEN)) {
 			return "green "+type;
 		}
-		else if(color == 'y') {
+		else if(color.equals(Color.YELLOW)) {
 			return "yellow "+type;
 		}
 		else {
-			return "no color "+type;
+			return type;
 		}
-	}*/
+	}
 }
