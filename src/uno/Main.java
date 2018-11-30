@@ -101,8 +101,6 @@ public class Main extends Application {
 			numPlayers = 4;
 		}
 		
-		Game g = new Game(numPlayers);
-		
 		StackPane background = new StackPane();
 		background.setStyle("-fx-background-color: DARKRED;");
 		
@@ -172,6 +170,8 @@ public class Main extends Application {
 		
 		HBox layoutHand = new HBox(20);
 		root.getChildren().add(layoutHand);
+		
+		Game g = new Game(numPlayers);
 		
 		g.setup();
 		
