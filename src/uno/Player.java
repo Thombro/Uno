@@ -22,7 +22,7 @@ public class Player {
 				System.out.println((i + 1) + " " + hand.get(i));
 				}
 			
-			System.out.println("Which card will you like to play" + "(1 -" + hand.size() + ")");
+			System.out.println("Player " + name + "Which card will you like to play" + "(1 -" + hand.size() + " )");
 			int numOfCard = scnr.nextInt();
 			
 				while (hand.get(numOfCard - 1).canPlayOn(top)) {
