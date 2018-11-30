@@ -21,18 +21,22 @@ public class Game {
 	private int numPlayers;
 	private boolean console;
 	
+	private boolean gameOver;
+	
 	
 	public Game() {
 		numPlayers = 0;
 		players = new ArrayList<>();
 		deck = new Deck();
 		console = true;
+		gameOver = false;
 	}
 	public Game(int selectedNumPlayers) {
 		numPlayers = selectedNumPlayers;
 		players = new ArrayList<>();
 		deck = new Deck();
 		console = false;
+		gameOver = false;
 	}
 	/**
 	 * in the game loop:
@@ -42,68 +46,61 @@ public class Game {
 	 * 		then this should check if the player has won, if they have, it should quit.
 	 * </ul>
 	 */
-	private void gameLoop() {
-		while(true) {
-			Player p = players.get(currentPlayer);
-			Card move = p.getPlayerMove(topCard);
-			//move.setWildColor(p.getWildColor());
-			if(move == null) {
-				p.add(deck.drawCard());
+	private void playTurn() {
+		Player p = players.get(currentPlayer);
+		Card move = p.getPlayerMove(topCard);
+		//move.setWildColor(p.getWildColor());
+			if(move.getType() == "rev") {
+				if(players.size() == 2) {
+					nextPlayer();
+				}
+				
+				else {
+					direction = direction*-1;
+				}
 			}
 			
-			else {
-				if(move.getType() == "rev") {
-					if(players.size() == 2) {
-						nextPlayer();
-					}
-					
-					else {
-						direction = direction*-1;
-					}
-				}
-				
-				if(move.getType() == "skip") {
-					nextPlayer();
-				}
-				
-				if(move.getType() == "dr2") {
-					nextPlayer();
-					Player p2 = players.get(currentPlayer);
+			if(move.getType() == "skip") {
+				nextPlayer();
+			}
+			
+			if(move.getType() == "dr2") {
+				nextPlayer();
+				Player p2 = players.get(currentPlayer);
+				p2.add(deck.drawCard());
+				p2.add(deck.drawCard());
+			}
+			
+			else if(move.getType() == "wild") {
+				//move.setWildColor(p.getWildColor());
+			}
+			
+			else if(move.getType() == "dr4") {
+				nextPlayer();
+				Player p2 = players.get(currentPlayer);
+				for(int i = 0; i<4; i++) {
 					p2.add(deck.drawCard());
-					p2.add(deck.drawCard());
 				}
 				
-				else if(move.getType() == "wild") {
-					//move.setWildColor(p.getWildColor());
-				}
-				
-				else if(move.getType() == "dr4") {
-					nextPlayer();
-					Player p2 = players.get(currentPlayer);
-					for(int i = 0; i<4; i++) {
-						p2.add(deck.drawCard());
-					}
-					
-				//	move.setWildColor(p.getWildColor());
-				}
-				
-				deck.discard(move);
-				topCard = move;
+			//	move.setWildColor(p.getWildColor());
 			}
 			
-			if(p.handSize() == 0) {
-				System.out.println("Congratulations " + p.getName() + ", you have won the game!");
-				break;
-			}
-			
-			if(!p.getSaidUno() && p.handSize() == 1) {
-				p.add(deck.drawCard());
-				p.add(deck.drawCard());
-			}
-			
-			p.setSaidUno(false);
-			nextPlayer();
+			deck.discard(move);
+			topCard = move;
+		
+		if(p.handSize() == 0) {
+			System.out.println("Congratulations " + p.getName() + ", you have won the game!");
+			gameOver = true;
 		}
+		
+		if(!p.getSaidUno() && p.handSize() == 1) {
+			p.add(deck.drawCard());
+			p.add(deck.drawCard());
+		}
+		
+		p.setSaidUno(false);
+		nextPlayer();
+		
 	}
 	/**
 	 * prints the rules
@@ -125,8 +122,8 @@ public class Game {
 		}
 		
 		for(int i = 0; i < numPlayers; i++) {
-				Player p = new Player("Player " + (i + 1));
-				players.add(p);
+			Player p = new Player("Player " + (i + 1));
+			players.add(p);
 		}
 	
 	}
@@ -145,7 +142,10 @@ public class Game {
 				p.add(deck.drawCard());
 			}
 		}
-		gameLoop();
+	}
+	
+	public boolean hasWon() {
+		return gameOver;
 	}
 	
 	private void nextPlayer() {
@@ -161,5 +161,9 @@ public class Game {
 	}
 	public Player getCurrentPlayer() {
 		return players.get(currentPlayer);
+	}
+	
+	public void drawCard() {
+		players.get(currentPlayer).add(deck.drawCard());
 	}
 }
