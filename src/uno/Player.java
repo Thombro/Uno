@@ -22,15 +22,16 @@ public class Player {
 				System.out.println((i + 1) + " " + hand.get(i));
 				}
 			
+			System.out.print("The card at the top is " + top);
 			System.out.println("Player " + name + "Which card will you like to play" + "(1 -" + hand.size() + " )");
 			int numOfCard = scnr.nextInt();
 			
-				while (hand.get(numOfCard - 1).canPlayOn(top)) {
+				while (!hand.get(numOfCard - 1).canPlayOn(top)) {
 					System.out.println("Player " + name + "Which card will you like to play" + "(1 -" + hand.size() + " )");
 					numOfCard = scnr.nextInt();
 					
 						if (hand.get(numOfCard-1).getType() == "wild" || hand.get(numOfCard-1).getType() == "dr4") {
-							System.out.println("What color would you like:");
+							System.out.println("What color would you like: ");
 							char b = scnr.next().charAt(0);
 							
 							if(b == 'b') {
@@ -46,6 +47,7 @@ public class Player {
 								hand.get(numOfCard-1).setWildColor(Color.YELLOW);
 							}
 						}
+						
 					}
 				
 				hand.remove(numOfCard - 1);
