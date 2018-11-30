@@ -26,24 +26,24 @@ public class Player {
 			int numOfCard = scnr.nextInt();
 			
 				while (hand.get(numOfCard - 1).canPlayOn(top)) {
-					System.out.println("Which card will you like to play" + "(1 -" + hand.size() + ")");
+					System.out.println("Player " + name + "Which card will you like to play" + "(1 -" + hand.size() + " )");
 					numOfCard = scnr.nextInt();
 					
-						if (hand.get(numOfCard).getType() == "wild" || hand.get(numOfCard).getType() == "dr4") {
+						if (hand.get(numOfCard-1).getType() == "wild" || hand.get(numOfCard-1).getType() == "dr4") {
 							System.out.println("What color would you like:");
 							char b = scnr.next().charAt(0);
 							
 							if(b == 'b') {
-								hand.get(numOfCard).setWildColor(Color.BLUE);
+								hand.get(numOfCard-1).setWildColor(Color.BLUE);
 							}
 							if(b == 'g') {
-								hand.get(numOfCard).setWildColor(Color.GREEN);
+								hand.get(numOfCard-1).setWildColor(Color.GREEN);
 							}
 							if(b == 'r') {
-								hand.get(numOfCard).setWildColor(Color.RED);
+								hand.get(numOfCard-1).setWildColor(Color.RED);
 							}
 							if (b == 'y') {
-								hand.get(numOfCard).setWildColor(Color.YELLOW);
+								hand.get(numOfCard-1).setWildColor(Color.YELLOW);
 							}
 						}
 					}
