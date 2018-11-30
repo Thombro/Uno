@@ -46,7 +46,7 @@ public class Game {
 	 * 		then this should check if the player has won, if they have, it should quit.
 	 * </ul>
 	 */
-	private void playTurn() {
+	public void playTurn() {
 		Player p = players.get(currentPlayer);
 		Card move = p.getPlayerMove(topCard);
 		//move.setWildColor(p.getWildColor());
