@@ -46,9 +46,10 @@ public class Game {
 	 * 		then this should check if the player has won, if they have, it should quit.
 	 * </ul>
 	 */
-	private void playTurn() {
+	public void playTurn(int index) {
 		Player p = players.get(currentPlayer);
-		Card move = p.getPlayerMove(topCard);
+		
+		Card move = p.getCard(index);
 		//move.setWildColor(p.getWildColor());
 			if(move.getType() == "rev") {
 				if(players.size() == 2) {
@@ -147,7 +148,7 @@ public class Game {
 	public boolean hasWon() {
 		return gameOver;
 	}
-	
+	//DONT CHANGE FOR GUI
 	private void nextPlayer() {
 		currentPlayer = currentPlayer + direction;
 		
@@ -159,11 +160,21 @@ public class Game {
 			currentPlayer = currentPlayer % players.size();
 		}
 	}
+	
+	//DONT CHANGE
 	public Player getCurrentPlayer() {
 		return players.get(currentPlayer);
 	}
 	
 	public void drawCard() {
 		players.get(currentPlayer).add(deck.drawCard());
+	}
+	
+	public Card getTopCard() {
+		return deck.peekDiscard();
+	}
+	
+	public ArrayList<Card> getCurrentHand(){
+		return players.get(currentPlayer).getHand();
 	}
 }

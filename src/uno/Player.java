@@ -14,6 +14,10 @@ public class Player {
 		saidUno = false;
 	}
 	
+	public Card getCard(int cardNum) {
+		return hand.get(cardNum);
+	}
+	
 	public Card getPlayerMove(Card top, Scanner scnr) {
 		System.out.print("Would you like to move or draw a card (m/d)");
 		char input = scnr.next().charAt(0);

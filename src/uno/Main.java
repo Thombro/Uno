@@ -1,5 +1,6 @@
 package uno;
 
+
 import java.util.Scanner;
 
 import javafx.application.Application;
@@ -10,6 +11,8 @@ import javafx.scene.control.Button;
 import javafx.stage.Stage;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
@@ -30,7 +33,6 @@ public class Main extends Application {
 	Scene howToPlay;
 	Scene gamePlay;
 	private int numPlayers;
-	public Game newGame;
 	
 	public static void main(String[] args) {
 		boolean gui = false;
@@ -55,7 +57,6 @@ public class Main extends Application {
 		}
 		else {
 			Game g = new Game();
-			gameLoop();
 		}
 	}
 
@@ -101,7 +102,7 @@ public class Main extends Application {
 			numPlayers = 4;
 		}
 		
-		Game g = new Game(numPlayers);
+		Game newGame = new Game(numPlayers);
 		
 		StackPane background = new StackPane();
 		background.setStyle("-fx-background-color: DARKRED;");
@@ -158,11 +159,11 @@ public class Main extends Application {
 		
 		howToPlay = new Scene(htpBackground, 600, 600);
 		
+		
 		Group root = new Group();
 		
 		Button exit = new Button("Exit Game");
 		exit.setOnAction(e -> window.setScene(mainMenu));
-		
 		root.getChildren().add(exit);
 		
 		HBox layoutDeck = new HBox(20);
@@ -171,7 +172,61 @@ public class Main extends Application {
 		HBox layoutHand = new HBox(20);
 		root.getChildren().add(layoutHand);
 		
-		//g.setup();
+		Button draw = new Button();
+		draw.setOnAction(e -> newGame.drawCard());
+		root.getChildren().add(draw);
+		
+		newGame.setup();
+		
+		while(!newGame.hasWon()) {
+			//Setting up display
+			for(Card c : newGame.getCurrentHand()) {
+				layoutHand.getChildren().add(c);
+			}
+			
+			layoutDeck.getChildren().add(newGame.getTopCard());
+			
+			//For the player to play
+			gamePlay.addEventHandler(KeyEvent.KEY_PRESSED, (key) -> {
+				if (key.getCode() == KeyCode.DIGIT1) {
+					newGame.playTurn(0);
+				}
+				else if(key.getCode() == KeyCode.DIGIT2) {
+					newGame.playTurn(1);
+				}
+				else if(key.getCode() == KeyCode.DIGIT3) {
+					newGame.playTurn(2);
+				}
+				else if(key.getCode() == KeyCode.DIGIT4) {
+					newGame.playTurn(3);	
+				}
+				else if(key.getCode() == KeyCode.DIGIT5) {
+					newGame.playTurn(4);
+				}
+				else if(key.getCode() == KeyCode.DIGIT6) {
+					newGame.playTurn(5);
+				}
+				else if(key.getCode() == KeyCode.DIGIT7) {
+					newGame.playTurn(6);
+				}
+				else if(key.getCode() == KeyCode.DIGIT8) {
+					newGame.playTurn(7);
+				}
+				else if(key.getCode() == KeyCode.DIGIT9) {
+					newGame.playTurn(8);
+				}
+				else if(key.getCode() == KeyCode.DIGIT0) {
+					newGame.playTurn(9);
+				}
+				});
+			
+			layoutHand.getChildren().clear();
+			layoutDeck.getChildren().clear();
+		}
+		
+		Text winner = new Text(newGame.getCurrentPlayer() + " has won!!!");
+		
+		root.getChildren().add(winner);
 		
 		gamePlay = new Scene(root, 600, 600);
 		
@@ -180,16 +235,4 @@ public class Main extends Application {
 		window.show();
 	
 	}	
-	
-	private void gameLoop() {
-		newGame.setup();
-		
-		while(!newGame.hasWon()) {
-			
-			newGame.playTurn();
-			
-		}
-		
-		Text winner = new Text(newGame.getCurrentPlayer() + " has won!!");
-	}
 }
