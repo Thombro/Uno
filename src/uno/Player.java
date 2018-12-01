@@ -53,12 +53,12 @@ public class Player {
 						}
 						
 					}
-				
-				if (hand.get(numOfCard - 1).canPlayOn(top)) {
+				Card c = hand.get(numOfCard - 1);
+				if (c.canPlayOn(top)) {
 					hand.remove(numOfCard - 1);
 				}
 				
-				return hand.get(numOfCard - 1);
+				return c;
 		}
 		else {
 			return null;
