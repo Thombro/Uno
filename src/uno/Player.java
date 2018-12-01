@@ -38,7 +38,7 @@ public class Player {
 			sc.nextLine();
 		}
 		if(answer == 'm') {
-			System.out.println("the cards in your hand that can be played on a "+top+" are:");
+			System.out.println("The cards in your hand that can be played on a "+top+" are:");
 			ArrayList<Card> temp = new ArrayList<>();
 			for(Card c : hand) {
 				if(c.canPlayOn(top)) {
@@ -58,7 +58,7 @@ public class Player {
 			String move;
 			while(true) {
 				System.out.println();
-				System.out.println("which do you want to play (1-"+temp.size()+"), or cancel (c) to draw a card");
+				System.out.println("which do you want to play (1-" + temp.size() + "), or cancel (c) to draw a card");
 				move = sc.nextLine();
 				if(move.charAt(0) == 'c') {
 					return null;
@@ -71,7 +71,7 @@ public class Player {
 						answer = ' ';
 						while(answer != 'y' && answer != 'r' && answer != 'g' && answer != 'b') {
 							System.out.println();
-							System.out.println("Do you want the wild to be blue (b), red (r), green (g), or yellow (y)");
+							System.out.println("Do you want the wild to be Blue (b), Red (r), Green (g), or Yellow (y)");
 							answer = sc.next().charAt(0);
 							sc.nextLine();
 						}
