@@ -53,13 +53,10 @@ public class Player {
 								c.setWildColor(Color.YELLOW);
 							}
 						}
-						
+						if (c.canPlayOn(top)) {
+							hand.remove(numOfCard - 1);
+						}
 					}
-				
-				if (c.canPlayOn(top)) {
-					hand.remove(numOfCard - 1);
-				}
-				
 				return c;
 		}
 		else {
