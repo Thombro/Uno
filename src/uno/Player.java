@@ -27,11 +27,11 @@ public class Player {
 				}
 			
 			System.out.println("The card at the top is " + top);
-			System.out.println("Player " + name + "Which card will you like to play" + "(1 -" + hand.size() + " )");
+			System.out.println("Player " + name + " Which card will you like to play" + "(1 - " + hand.size() + ")");
 			int numOfCard = scnr.nextInt();
 			
 				while (!hand.get(numOfCard - 1).canPlayOn(top)) {
-					System.out.println("Player " + name + "Which card will you like to play" + "(1 -" + hand.size() + " )");
+					System.out.println("Player " + name + "Which card will you like to play" + "(1 - " + hand.size() + ")");
 					numOfCard = scnr.nextInt();
 					
 						if (hand.get(numOfCard-1).getType() == "wild" || hand.get(numOfCard-1).getType() == "dr4") {
