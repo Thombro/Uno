@@ -35,7 +35,7 @@ public class Deck {
 				drawPile.add(new Card(colors[c], i+""));
 			}
 			for (int i = 0; i < 2; i++) {
-				drawPile.add(new Card(colors[c], "skp"));
+				drawPile.add(new Card(colors[c], "skip"));
 				drawPile.add(new Card(colors[c], "rev"));
 			}
 		}
