@@ -37,26 +37,33 @@ public class Player {
 					c = hand.get(numOfCard - 1);
 					
 						if (c.getType() == "wild" || c.getType() == "dr4") {
-							System.out.println("What color would you like: ");
-							char b = scnr.next().charAt(0);
-							
-							if(b == 'b') {
+							char answer = ' ';
+							while (answer != 'y' && answer != 'r' && answer != 'b' && answer != 'g') {
+								System.out.println();
+								System.out.println("What color do want for your wild card");
+								answer = scnr.next().charAt(0);
+								scnr.nextLine();
+							}
+							if(answer == 'b') {
 								c.setWildColor(Color.BLUE);
 							}
-							if(b == 'g') {
+							if(answer == 'g') {
 								c.setWildColor(Color.GREEN);
 							}
-							if(b == 'r') {
+							if(answer == 'r') {
 								c.setWildColor(Color.RED);
 							}
-							if (b == 'y') {
+							if (answer == 'y') {
 								c.setWildColor(Color.YELLOW);
 							}
 						}
-						if (c.canPlayOn(top)) {
-							hand.remove(numOfCard - 1);
-						}
+						
 					}
+				
+				if (c.canPlayOn(top)) {
+					hand.remove(numOfCard - 1);
+				}
+				
 				return c;
 		}
 		else {
