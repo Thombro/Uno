@@ -29,31 +29,33 @@ public class Player {
 			System.out.println("The card at the top is " + top);
 			System.out.println("Player " + name + " Which card will you like to play" + "(1 - " + hand.size() + ")");
 			int numOfCard = scnr.nextInt();
+			Card c = hand.get(numOfCard - 1);
 			
-				while (!hand.get(numOfCard - 1).canPlayOn(top)) {
+				while (!c.canPlayOn(top)) {
 					System.out.println("Player " + name + "Which card will you like to play" + "(1 - " + hand.size() + ")");
 					numOfCard = scnr.nextInt();
+					c = hand.get(numOfCard - 1);
 					
-						if (hand.get(numOfCard-1).getType() == "wild" || hand.get(numOfCard-1).getType() == "dr4") {
+						if (c.getType() == "wild" || c.getType() == "dr4") {
 							System.out.println("What color would you like: ");
 							char b = scnr.next().charAt(0);
 							
 							if(b == 'b') {
-								hand.get(numOfCard-1).setWildColor(Color.BLUE);
+								c.setWildColor(Color.BLUE);
 							}
 							if(b == 'g') {
-								hand.get(numOfCard-1).setWildColor(Color.GREEN);
+								c.setWildColor(Color.GREEN);
 							}
 							if(b == 'r') {
-								hand.get(numOfCard-1).setWildColor(Color.RED);
+								c.setWildColor(Color.RED);
 							}
 							if (b == 'y') {
-								hand.get(numOfCard-1).setWildColor(Color.YELLOW);
+								c.setWildColor(Color.YELLOW);
 							}
 						}
 						
 					}
-				Card c = hand.get(numOfCard - 1);
+				
 				if (c.canPlayOn(top)) {
 					hand.remove(numOfCard - 1);
 				}
