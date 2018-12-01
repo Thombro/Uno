@@ -19,14 +19,14 @@ public class Player {
 	}
 	
 	public Card getPlayerMove(Card top, Scanner scnr) {
-		System.out.print("Would you like to move or draw a card (m/d)");
+		System.out.print("Would you like to move or draw a card (m/d) player " + name);
 		char input = scnr.next().charAt(0);
 		if (input == 'm') {
 			for(int i = 0; i < hand.size(); ++i) {
 				System.out.println((i + 1) + " " + hand.get(i));
 				}
 			
-			System.out.print("The card at the top is " + top);
+			System.out.println("The card at the top is " + top);
 			System.out.println("Player " + name + "Which card will you like to play" + "(1 -" + hand.size() + " )");
 			int numOfCard = scnr.nextInt();
 			
