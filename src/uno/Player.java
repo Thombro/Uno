@@ -50,7 +50,10 @@ public class Player {
 						
 					}
 				
-				hand.remove(numOfCard - 1);
+				if (hand.get(numOfCard - 1).canPlayOn(top)) {
+					hand.remove(numOfCard - 1);
+				}
+				
 				return hand.get(numOfCard - 1);
 		}
 		else {
