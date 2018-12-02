@@ -25,7 +25,7 @@ public class Deck {
 		drawPile = new Stack<>();
 		discardPile = new Stack<>();
 		
-		Color[] colors = {Color.RED, Color.GREEN, Color.BLUE, Color.YELLOW, Color.rgb(120,120,120)};
+		Color[] colors = {Color.rgb(255, 53, 0), Color.rgb(255, 137, 0), Color.rgb(8, 122, 177), Color.rgb(0, 194, 84), Color.rgb(120, 120, 120)};
 		
 //		Loops through each color
 		for (int c = 0; c < 4; c++) {

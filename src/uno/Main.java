@@ -33,6 +33,13 @@ public class Main extends Application {
 	Scene howToPlay;
 	Scene gamePlay;
 	private int numPlayers;
+	RadioButton play4;
+	RadioButton play3;
+	RadioButton play2;
+	HBox layoutDeck;
+	HBox layoutHand;
+	StackPane root;
+	Game newGame;
 	
 	public static void main(String[] args) {
 		boolean gui = false;
@@ -62,7 +69,7 @@ public class Main extends Application {
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
-		Stage window = primaryStage;
+		window = primaryStage;
 		
 		//Main Menu
 		
@@ -73,7 +80,7 @@ public class Main extends Application {
 		gameName.setStroke(Color.BLACK);
 		
 		Button startBtn = new Button("Start Game");
-		startBtn.setOnAction(e -> window.setScene(gamePlay));
+		startBtn.setOnAction(e -> setupGame());
 		
 		Button ruleBtn = new Button("How to Play");
 		ruleBtn.setOnAction(e -> window.setScene(howToPlay));
@@ -83,26 +90,17 @@ public class Main extends Application {
 		
 		final ToggleGroup groupOfPlayers = new ToggleGroup();
 		
-		RadioButton play2 = new RadioButton("Two Player");
+		play2 = new RadioButton("Two Player");
 		play2.setToggleGroup(groupOfPlayers);
 		
-		RadioButton play3 = new RadioButton("Three Player");
+		play3 = new RadioButton("Three Player");
 		play3.setToggleGroup(groupOfPlayers);
 		
-		RadioButton play4 = new RadioButton("Four Player");
+		play4 = new RadioButton("Four Player");
 		play4.setToggleGroup(groupOfPlayers);
 		
-		if(play2.isSelected()) {
-			numPlayers = 2;
-		}
-		else if(play3.isSelected()) {
-			numPlayers = 3;
-		}
-		else if(play4.isSelected()) {
-			numPlayers = 4;
-		}
 		
-		Game newGame = new Game(numPlayers);
+		newGame = new Game(numPlayers);
 		
 		StackPane background = new StackPane();
 		background.setStyle("-fx-background-color: DARKRED;");
@@ -126,7 +124,7 @@ public class Main extends Application {
 		background.getChildren().add(menuLayout);
 		
 		
-		mainMenu = new Scene(background, 600, 600);
+		mainMenu = new Scene(background, 800, 800);
 		
 		//How To Play 
 		
@@ -157,82 +155,133 @@ public class Main extends Application {
 		
 		htpBackground.getChildren().add(ruleLayout);
 		
-		howToPlay = new Scene(htpBackground, 600, 600);
+		howToPlay = new Scene(htpBackground, 800, 800);
 		
 		
-		Group root = new Group();
+		root = new StackPane();
+		root.setStyle("-fx-background-color: BLACK;");
+		
 		
 		Button exit = new Button("Exit Game");
 		exit.setOnAction(e -> window.setScene(mainMenu));
-		root.getChildren().add(exit);
+		exit.setAlignment(Pos.TOP_LEFT);
 		
-		HBox layoutDeck = new HBox(20);
-		root.getChildren().add(layoutDeck);
+		Button draw = new Button("Draw");
+		draw.setOnAction(e -> drawCard());
+		draw.setAlignment(Pos.CENTER);
 		
-		HBox layoutHand = new HBox(20);
-		root.getChildren().add(layoutHand);
+		layoutDeck = new HBox(20);
+		layoutDeck.setAlignment(Pos.CENTER);
+		layoutDeck.getChildren().add(draw);
 		
-		Button draw = new Button();
-		draw.setOnAction(e -> newGame.drawCard());
-		root.getChildren().add(draw);
+		layoutHand = new HBox(20);
+		layoutHand.setAlignment(Pos.BOTTOM_CENTER);
 		
-		newGame.setup();
+		VBox gameLayout = new VBox(30);
+		gameLayout.getChildren().addAll(layoutDeck, layoutHand);
 		
-		while(!newGame.hasWon()) {
-			//Setting up display
-			for(Card c : newGame.getCurrentHand()) {
-				layoutHand.getChildren().add(c);
-			}
-			
-			layoutDeck.getChildren().add(newGame.getTopCard());
-			
-			//For the player to play
-			gamePlay.addEventHandler(KeyEvent.KEY_PRESSED, (key) -> {
-				if (key.getCode() == KeyCode.DIGIT1) {
-					newGame.playTurn(0);
-				}
-				else if(key.getCode() == KeyCode.DIGIT2) {
-					newGame.playTurn(1);
-				}
-				else if(key.getCode() == KeyCode.DIGIT3) {
-					newGame.playTurn(2);
-				}
-				else if(key.getCode() == KeyCode.DIGIT4) {
-					newGame.playTurn(3);	
-				}
-				else if(key.getCode() == KeyCode.DIGIT5) {
-					newGame.playTurn(4);
-				}
-				else if(key.getCode() == KeyCode.DIGIT6) {
-					newGame.playTurn(5);
-				}
-				else if(key.getCode() == KeyCode.DIGIT7) {
-					newGame.playTurn(6);
-				}
-				else if(key.getCode() == KeyCode.DIGIT8) {
-					newGame.playTurn(7);
-				}
-				else if(key.getCode() == KeyCode.DIGIT9) {
-					newGame.playTurn(8);
-				}
-				else if(key.getCode() == KeyCode.DIGIT0) {
-					newGame.playTurn(9);
-				}
-				});
-			
-			layoutHand.getChildren().clear();
-			layoutDeck.getChildren().clear();
-		}
-		
-		Text winner = new Text(newGame.getCurrentPlayer() + " has won!!!");
-		
-		root.getChildren().add(winner);
-		
-		gamePlay = new Scene(root, 600, 600);
+		root.getChildren().addAll(exit, gameLayout);
+	
+		gamePlay = new Scene(root, 800, 800);
 		
 		window.setScene(mainMenu);
 		window.setTitle("UNO");
 		window.show();
 	
 	}	
+
+	private void setupGame() {
+		if(play2.isSelected()) {
+			numPlayers = 2;
+		}
+		else if(play3.isSelected()) {
+			numPlayers = 3;
+		}
+		else if(play4.isSelected()) {
+			numPlayers = 4;
+		}
+		
+		window.setScene(gamePlay);
+		
+		newGame = new Game(numPlayers);
+		
+		newGame.setup();
+		
+		layoutDeck.getChildren().add(newGame.getTopCard());
+		
+		for(Card c : newGame.getCurrentHand()) {
+			layoutHand.getChildren().add(c);
+		}
+			
+		//For the player to play
+		gamePlay.addEventHandler(KeyEvent.KEY_PRESSED, (key) -> {
+			if (key.getCode() == KeyCode.DIGIT1) {
+				playCard(0);
+			}
+			else if(key.getCode() == KeyCode.DIGIT2) {
+				playCard(1);
+			}
+			else if(key.getCode() == KeyCode.DIGIT3) {
+				playCard(2);
+			}
+			else if(key.getCode() == KeyCode.DIGIT4) {
+				playCard(3);	
+			}
+			else if(key.getCode() == KeyCode.DIGIT5) {
+				playCard(4);
+			}
+			else if(key.getCode() == KeyCode.DIGIT6) {
+				playCard(5);
+			}
+			else if(key.getCode() == KeyCode.DIGIT7) {
+				playCard(6);
+			}
+			else if(key.getCode() == KeyCode.DIGIT8) {
+				playCard(7);
+			}
+			else if(key.getCode() == KeyCode.DIGIT9) {
+				playCard(8);
+			}
+			else if(key.getCode() == KeyCode.DIGIT0) {
+				playCard(9);
+			}
+			});
+		
+		if(newGame.hasWon()) {
+			Text winner = new Text(newGame.getCurrentPlayer() + " has won!!!");
+		
+			root.getChildren().add(winner);
+		}
+	}
+	
+	private void playCard(int cardIndex) {
+		newGame.playTurn(cardIndex);
+		
+		layoutHand.getChildren().clear();
+		layoutDeck.getChildren().remove(newGame.getTopCard());
+		
+		newGame.nextPlayer();
+		
+		layoutDeck.getChildren().add(newGame.getTopCard());
+		
+		for(Card c : newGame.getCurrentHand()) {
+			layoutHand.getChildren().add(c);
+		}
+	}
+	
+	
+	private void drawCard() {
+		newGame.drawCard();
+		
+		layoutHand.getChildren().clear();
+		layoutDeck.getChildren().remove(newGame.getTopCard());
+		
+		newGame.nextPlayer();
+		
+		layoutDeck.getChildren().add(newGame.getTopCard());
+		
+		for(Card c : newGame.getCurrentHand()) {
+			layoutHand.getChildren().add(c);
+		}
+	}
 }

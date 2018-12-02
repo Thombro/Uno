@@ -5,7 +5,9 @@ import javafx.scene.Parent;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.*;
+import javafx.scene.text.Font;
 import javafx.scene.text.Text;
+import javafx.scene.text.TextAlignment;
 
 /**
  * holds the type & color of an UNO card
@@ -22,42 +24,15 @@ public class Card extends Parent{
 	public Card(Color color, String type) {
 		this.color = color;
 		this.type = type;
-		
-	    //Group root = new Group();
-	    //Scene theScene = new Scene( root );
-	    //theStage.setScene( theScene );
-	         
-	   /* Canvas canvas = new Canvas( 400, 200 );
-	    root.getChildren().add( canvas );
-	         
-	    GraphicsContext gc = canvas.getGraphicsContext2D();
-	         
-	    gc.setFill( Color.RED );
-	    gc.setStroke( Color.BLACK );
-	    gc.setLineWidth(2);
-	    Font theFont = Font.font( "Times New Roman", FontWeight.BOLD, 48 );
-	    gc.setFont( theFont );
-	    gc.fillText( "Hello, World!", 60, 50 );
-	    gc.strokeText( "Hello, World!", 60, 50 
-		Rectangle r = new Rectangle();*/
-		//r.setX(50);
-		//r.setY(50);
-		
-		/*r.setWidth(100);
-		r.setHeight(200);
-		r.setArcWidth(20);
-		r.setArcHeight(20);
-		r.setFill(color);
-	    Text text1 = new Text(type);
-	    
-	    r.getChildren().add(t);*/
-	    //text1.setX(100 - text1.getLayoutBounds().getWidth() - 10);
-        //text1.setY(text1.getLayoutBounds().getHeight());
+	
 		Rectangle bg = new Rectangle(80,100);
 		bg.setArcHeight(20);
 		bg.setFill(color);
 		Text text = new Text(type);
+		text.setFont(Font.font("Serif", 20));
 		text.setWrappingWidth(70);
+		text.setTextAlignment(TextAlignment.CENTER);
+		text.setFill(Color.BLACK);
 		getChildren().add(new StackPane(bg,text));
 	}
 	/**

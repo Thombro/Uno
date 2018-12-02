@@ -19,6 +19,11 @@ public class Player {
 		hand = new ArrayList<>();
 		saidUno=false;
 	}
+	
+	public Card getCard(int cardNum) {
+		return hand.get(cardNum);
+	}
+	
 	/**
 	 * asks the player if they want to make a move or draw a card<br>
 	 * if they want to make a move, this removes & returns the Card if it can be played on <b>top</b><br>
@@ -154,5 +159,9 @@ public class Player {
 			}
 			return false;
 		}
+	}
+	
+	public ArrayList<Card> getHand() {
+		return hand;
 	}
 }

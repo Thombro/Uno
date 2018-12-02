@@ -31,6 +31,7 @@ public class Game {
 		console = true;
 		gameOver = false;
 	}
+	
 	public Game(int selectedNumPlayers) {
 		numPlayers = selectedNumPlayers;
 		players = new ArrayList<>();
@@ -148,8 +149,9 @@ public class Game {
 	public boolean hasWon() {
 		return gameOver;
 	}
+	
 	//DONT CHANGE FOR GUI
-	private void nextPlayer() {
+	public void nextPlayer() {
 		currentPlayer = currentPlayer + direction;
 		
 		if(currentPlayer == -1) {
