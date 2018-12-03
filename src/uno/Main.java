@@ -1,6 +1,5 @@
 package uno;
 
-
 import java.util.Scanner;
 
 import javafx.application.Application;
@@ -43,6 +42,7 @@ public class Main extends Application {
 	private HBox wildButtons;
 	private Card currentVisible;
 	private HBox unoButton;
+	private Text currentPlayerName;
 	
 	public static void main(String[] args) {
 		boolean gui = false;
@@ -273,6 +273,12 @@ public class Main extends Application {
 		
 		newGame.setup();
 		
+		//displays the name of the current player
+		currentPlayerName = new Text(newGame.getCurrentPlayer().getName());
+		currentPlayerName.setFill(Color.YELLOW);
+		currentPlayerName.setFont(Font.font("Serif", 20));
+		layoutHand.getChildren().add(currentPlayerName);
+		
 		//displays the card on top of the discard pile
 		layoutDeck.getChildren().add(newGame.getTopCard());
 		
@@ -319,7 +325,7 @@ public class Main extends Application {
 		
 		//prints following text if current player has won the game
 		if(newGame.hasWon()) {
-			Text winner = new Text(newGame.getCurrentPlayer() + " has won!!!");
+			Text winner = new Text(newGame.getCurrentPlayer().getName() + " has won!!!");
 		
 			root.getChildren().add(winner);
 		}
@@ -332,15 +338,6 @@ public class Main extends Application {
 	private void playCard(int cardIndex) {
 		
 		currentVisible = newGame.getTopCard();
-		
-		//displays the name of the current player
-		Text currentPlayerName = new Text("Player");
-		currentPlayerName.setFill(Color.YELLOW);
-		currentPlayerName.setFont(Font.font("Serif", 20));
-		
-		HBox currentName = new HBox(20);
-		currentName.getChildren().add(currentPlayerName);
-		layoutHand.getChildren().add(currentName);
 		
 		//plays the current player's turn for the selected card
 		newGame.guiPlayTurn(cardIndex);
@@ -361,8 +358,12 @@ public class Main extends Application {
 				//changes the current player to the following player
 				newGame.nextPlayer();
 				
+				
 				//displays the new top card in the discard pile (the card played by the previous player)
 				layoutDeck.getChildren().add(newGame.getTopCard());
+				
+				//displays the name of the current player
+				layoutHand.getChildren().add(currentPlayerName);
 				
 				//displays the hand of the new current player
 				for(Card c : newGame.getCurrentHand()) {
