@@ -40,6 +40,7 @@ public class Main extends Application {
 	HBox layoutHand;
 	StackPane root;
 	Game newGame;
+	HBox wildButtons;
 	
 	public static void main(String[] args) {
 		boolean gui = false;
@@ -92,6 +93,7 @@ public class Main extends Application {
 		
 		play2 = new RadioButton("Two Player");
 		play2.setToggleGroup(groupOfPlayers);
+		play2.setSelected(true);
 		
 		play3 = new RadioButton("Three Player");
 		play3.setToggleGroup(groupOfPlayers);
@@ -161,10 +163,10 @@ public class Main extends Application {
 		root = new StackPane();
 		root.setStyle("-fx-background-color: BLACK;");
 		
-		
+		/*
 		Button exit = new Button("Exit Game");
 		exit.setOnAction(e -> window.setScene(mainMenu));
-		exit.setAlignment(Pos.TOP_LEFT);
+		exit.setAlignment(Pos.BOTTOM_LEFT);*/
 		
 		Button draw = new Button("Draw");
 		draw.setOnAction(e -> drawCard());
@@ -180,7 +182,22 @@ public class Main extends Application {
 		VBox gameLayout = new VBox(30);
 		gameLayout.getChildren().addAll(layoutDeck, layoutHand);
 		
-		root.getChildren().addAll(exit, gameLayout);
+		Button redWild = new Button("Red");
+		redWild.setOnAction(e -> chooseWild(0));
+		Button greenWild = new Button("Green");
+		greenWild.setOnAction(e -> chooseWild(1));
+		Button blueWild = new Button("Blue");
+		blueWild.setOnAction(e -> chooseWild(2));
+		Button yellowWild = new Button("Yellow");
+		yellowWild.setOnAction(e -> chooseWild(3));
+		
+		wildButtons = new HBox(20);
+		wildButtons.getChildren().addAll(redWild, greenWild, blueWild, yellowWild);
+		wildButtons.setAlignment(Pos.CENTER);
+		wildButtons.setDisable(true);
+		
+		
+		root.getChildren().addAll(wildButtons, gameLayout);
 	
 		gamePlay = new Scene(root, 800, 800);
 		
@@ -255,12 +272,34 @@ public class Main extends Application {
 	}
 	
 	private void playCard(int cardIndex) {
+		
 		newGame.playTurn(cardIndex);
 		
+		if(newGame.isWild()) {
+			wildButtons.setDisable(false);
+		} 
+		
+		else {
+			
+			layoutHand.getChildren().clear();
+			layoutDeck.getChildren().remove(newGame.getTopCard());
+
+			newGame.nextPlayer();
+			
+			layoutDeck.getChildren().add(newGame.getTopCard());
+			
+			for(Card c : newGame.getCurrentHand()) {
+				layoutHand.getChildren().add(c);
+			}
+		}
+		
+	}
+	
+	private void chooseWild(int colorIndex) {
 		layoutHand.getChildren().clear();
 		layoutDeck.getChildren().remove(newGame.getTopCard());
 		
-		newGame.nextPlayer();
+		newGame.playWild(colorIndex);
 		
 		layoutDeck.getChildren().add(newGame.getTopCard());
 		
@@ -268,7 +307,6 @@ public class Main extends Application {
 			layoutHand.getChildren().add(c);
 		}
 	}
-	
 	
 	private void drawCard() {
 		newGame.drawCard();

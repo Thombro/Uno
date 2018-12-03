@@ -115,6 +115,9 @@ public class Player {
 			hand.add(c);
 		}
 	}
+	public void remove(int index) {
+		hand.remove(index);
+	}
 	public int handSize() {
 		return hand.size();
 	}

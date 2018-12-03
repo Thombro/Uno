@@ -3,6 +3,8 @@ package uno;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import javafx.scene.paint.Color;
+
 /**
  * runs an UNO game when setup() is called
  * holds the players and decks used in the game
@@ -20,6 +22,8 @@ public class Game {
 	private int direction = 1;//1 if normal, -1 if reverse
 	private int numPlayers;
 	private boolean console;
+	private boolean wildCard;
+	private Card move;
 	
 	private boolean gameOver;
 	
@@ -48,9 +52,11 @@ public class Game {
 	 * </ul>
 	 */
 	public void playTurn(int index) {
+		wildCard = false;
+		
 		Player p = players.get(currentPlayer);
 		
-		Card move = p.getCard(index);
+		move = p.getCard(index);
 		//move.setWildColor(p.getWildColor());
 			if(move.getType() == "rev") {
 				if(players.size() == 2) {
@@ -74,19 +80,18 @@ public class Game {
 			}
 			
 			else if(move.getType() == "wild") {
-				//move.setWildColor(p.getWildColor());
+				wildCard = true;
 			}
 			
 			else if(move.getType() == "dr4") {
+				wildCard = true;
 				nextPlayer();
 				Player p2 = players.get(currentPlayer);
 				for(int i = 0; i<4; i++) {
 					p2.add(deck.drawCard());
 				}
-				
-			//	move.setWildColor(p.getWildColor());
 			}
-			
+			p.remove(index);
 			deck.discard(move);
 			topCard = move;
 		
@@ -101,7 +106,6 @@ public class Game {
 		}
 		
 		p.setSaidUno(false);
-		nextPlayer();
 		
 	}
 	/**
@@ -163,7 +167,6 @@ public class Game {
 		}
 	}
 	
-	//DONT CHANGE
 	public Player getCurrentPlayer() {
 		return players.get(currentPlayer);
 	}
@@ -178,5 +181,31 @@ public class Game {
 	
 	public ArrayList<Card> getCurrentHand(){
 		return players.get(currentPlayer).getHand();
+	}
+	
+	public boolean isWild() {
+		return wildCard;
+	}
+	
+	public void playWild(int colorIndex) {
+
+		if(colorIndex == 0) {
+			move.setWildColor(Color.rgb(255, 53, 0));
+		}
+		
+		if(colorIndex == 1) {
+			move.setWildColor(Color.rgb(255, 137, 0));
+		}
+		
+		if(colorIndex == 2) {
+			move.setWildColor(Color.rgb(8, 122, 177));
+		}
+		
+		if(colorIndex == 3) {
+			move.setWildColor(Color.rgb(0, 194, 84));
+		}
+		
+		nextPlayer();
+		
 	}
 }
