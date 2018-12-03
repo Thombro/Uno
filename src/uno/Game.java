@@ -54,7 +54,6 @@ public class Game {
 				if(players.size() == 2) {
 					nextPlayer();
 				}
-				
 				else {
 					direction = direction*-1;
 				}
@@ -161,6 +160,14 @@ public class Game {
 	}
 	public Player getCurrentPlayer() {
 		return players.get(currentPlayer);
+	}
+	
+	public Card getTopCard() {
+		return deck.peekDiscard();
+	}
+	
+	public ArrayList<Card> getCurrentHand() {
+		return new ArrayList<>();
 	}
 	
 	public void drawCard() {

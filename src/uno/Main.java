@@ -171,9 +171,8 @@ public class Main extends Application {
 		HBox layoutHand = new HBox(20);
 		root.getChildren().add(layoutHand);
 		
-		Game g = new Game(numPlayers);
 		
-		g.setup();
+		Game g = new Game(numPlayers);
 		
 		gamePlay = new Scene(root, 600, 600);
 		
