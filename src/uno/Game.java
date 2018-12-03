@@ -190,11 +190,6 @@ public class Game {
 				//automatically draws 4 cards for the next player when a draw4 card is played
 				else if(move.getType() == "dr4") {
 					wildCard = true;
-					nextPlayer();
-					Player p2 = players.get(currentPlayer);
-					for(int i = 0; i<4; i++) {
-						p2.add(deck.drawCard());
-					}
 				}
 				//removes the card played from the current player's hand
 				p.remove(index);
@@ -216,7 +211,6 @@ public class Game {
 					p.add(deck.drawCard());
 					p.add(deck.drawCard());
 				}
-				
 				p.setSaidUno(false);
 			}
 		}
@@ -349,6 +343,14 @@ public class Game {
 		deck.discard(move);
 		//makes top card on discard pile the wild card that was played
 		topCard = move; 
+		//
+		if(move.getType() == "dr4") {
+			nextPlayer();
+			Player p2 = players.get(currentPlayer);
+			for(int i = 0; i<4; i++) {
+				p2.add(deck.drawCard());
+			}
+		}
 		//calls the next player
 		nextPlayer();
 		

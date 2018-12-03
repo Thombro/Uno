@@ -43,8 +43,7 @@ public class Deck {
 		}
 		for (int i = 0; i < 4; i++) {
 			drawPile.add(new Card(colors[4], "wild"));
-			drawPile.add(new Card(colors[4], "wild"));
-//			drawPile.add(new Card(colors[4], "dr4"));
+			drawPile.add(new Card(colors[4], "dr4"));
 		}
 		Collections.shuffle(drawPile);
 		flipInitialCard();
