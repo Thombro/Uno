@@ -66,6 +66,7 @@ public class Main extends Application {
 		}
 		else {
 			Game g = new Game();
+			g.consolePlayTurn();
 		}
 	}
 
@@ -293,7 +294,7 @@ public class Main extends Application {
 	private void playCard(int cardIndex) {
 		currentVisible = newGame.getTopCard();
 		
-		newGame.playTurn(cardIndex);
+		newGame.guiPlayTurn(cardIndex);
 		
 		if(newGame.isValidCard()) {
 

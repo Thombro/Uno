@@ -44,7 +44,7 @@ public class Player {
 			sc.nextLine();
 		}
 		if(answer == 'm') {
-			System.out.println("The cards in your hand that can be played on a "+top+" are:");
+			System.out.println("The cards in your hand that can be played on a "+ top +" are:");
 			ArrayList<Card> temp = new ArrayList<>();
 			for(Card c : hand) {
 				if(c.canPlayOn(top)) {
