@@ -43,6 +43,8 @@ public class Main extends Application {
 	private Card currentVisible;
 	private HBox unoContainer;
 	private Text currentPlayerName;
+	private VBox exitContainer;
+	private Scene endScene;
 	
 	public static void main(String[] args) {
 		boolean gui = false;
@@ -244,6 +246,15 @@ public class Main extends Application {
 	
 		gamePlay = new Scene(root, 800, 650);
 		
+		Button endButton = new Button("End Game");
+		endButton.setOnMouseClicked(e -> window.setScene(mainMenu));
+		
+		exitContainer = new VBox(20);
+		exitContainer.getChildren().add(endButton);
+		exitContainer.setAlignment(Pos.CENTER);
+		
+		endScene = new Scene(exitContainer, 200, 200);
+		
 		//sets first screen as the main menu
 		window.setScene(mainMenu);
 		window.setTitle("UNO");
@@ -320,6 +331,24 @@ public class Main extends Application {
 			else if(key.getCode() == KeyCode.DIGIT0) {
 				playCard(9);
 			}
+			else if(key.getCode() == KeyCode.Q) {
+				playCard(10);
+			}
+			else if(key.getCode() == KeyCode.W) {
+				playCard(11);
+			}
+			else if(key.getCode() == KeyCode.E) {
+				playCard(12);
+			}
+			else if (key.getCode() == KeyCode.R) {
+				playCard(13);
+			}
+			else if (key.getCode() == KeyCode.T) {
+				playCard(14);
+			}
+			else if (key.getCode() == KeyCode.Y) {
+				playCard(15);
+			}
 			});
 	}
 	
@@ -370,8 +399,13 @@ public class Main extends Application {
 			for(Card c : newGame.getCurrentHand()) {
 				layoutHand.getChildren().add(c);
 			}
+			
 		}
-		
+		if (newGame.hasWon()) {
+			Text winner = new Text(newGame.getCurrentPlayer().getName() + " has won!!!");
+			exitContainer.getChildren().add(winner);
+			window.setScene(endScene);
+		}
 		//displays the name of the current player
 		currentPlayerName = new Text(newGame.getCurrentPlayer().getName());
 		currentPlayerName.setFill(Color.YELLOW);
