@@ -72,16 +72,16 @@ public class Card extends Parent{
 	
 	@Override
 	public String toString() {
-		if(color.equals(Color.BLUE)) {
+		if(color.equals(Color.rgb(8, 122, 177))) {
 			return "blue "+ type;
 		}
-		else if(color.equals(Color.RED)) {
+		else if(color.equals(Color.rgb(255, 53, 0))) {
 			return "red "+ type;
 		}
-		else if(color.equals(Color.GREEN)) {
+		else if(color.equals(Color.rgb(0, 194, 84))) {
 			return "green "+ type;
 		}
-		else if(color.equals(Color.YELLOW)) {
+		else if(color.equals(Color.rgb(255, 137, 0))) {
 			return "yellow "+ type;
 		}
 		else {
