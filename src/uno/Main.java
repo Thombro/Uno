@@ -185,7 +185,7 @@ public class Main extends Application {
 		
 		//returns to the main menu when pressed
 		Button exit = new Button("Exit Game");
-		exit.setOnMouseClicked(e -> window.setScene(mainMenu));
+		exit.setOnMouseClicked(e -> clearGame());
 		exit.setAlignment(Pos.TOP_LEFT);
 		
 		//current players draws a card when pressed
@@ -239,9 +239,9 @@ public class Main extends Application {
 		
 		//designs the layout of the entire game screen
 		VBox gameLayout = new VBox(20);
-		gameLayout.getChildren().addAll(cardLayout, gameButtons);
+		gameLayout.getChildren().addAll(exit, cardLayout, gameButtons);
 		
-		root.getChildren().addAll(exit, gameLayout);
+		root.getChildren().addAll(gameLayout);
 	
 		gamePlay = new Scene(root, 800, 800);
 		
@@ -333,6 +333,15 @@ public class Main extends Application {
 		
 		currentVisible = newGame.getTopCard();
 		
+		//displays the name of the current player
+		Text currentPlayerName = new Text("Player");
+		currentPlayerName.setFill(Color.YELLOW);
+		currentPlayerName.setFont(Font.font("Serif", 20));
+		
+		HBox currentName = new HBox(20);
+		currentName.getChildren().add(currentPlayerName);
+		layoutHand.getChildren().add(currentName);
+		
 		//plays the current player's turn for the selected card
 		newGame.guiPlayTurn(cardIndex);
 		
@@ -410,5 +419,15 @@ public class Main extends Application {
 		for(Card c : newGame.getCurrentHand()) {
 			layoutHand.getChildren().add(c);
 		}
+	}
+	
+	/**
+	 * Clears entire game when the game is exited
+	 */
+	private void clearGame() {
+		layoutHand.getChildren().clear();
+		layoutDeck.getChildren().remove(newGame.getTopCard());
+		
+		window.setScene(mainMenu);
 	}
 }
