@@ -137,7 +137,7 @@ public class Main extends Application {
 		background.getChildren().add(menuLayout);
 		
 		
-		mainMenu = new Scene(background, 800, 700);
+		mainMenu = new Scene(background, 800, 800);
 		 
 		//sets up the how to play screen for the gui
 		
@@ -175,7 +175,7 @@ public class Main extends Application {
 		
 		htpBackground.getChildren().add(ruleLayout);
 		
-		howToPlay = new Scene(htpBackground, 800, 700);
+		howToPlay = new Scene(htpBackground, 800, 800);
 		
 		//sets up the screen where the game is actually played
 		
@@ -243,7 +243,7 @@ public class Main extends Application {
 		
 		root.getChildren().addAll(gameLayout);
 	
-		gamePlay = new Scene(root, 800, 700);
+		gamePlay = new Scene(root, 800, 800);
 		
 		//sets first screen as the main menu
 		window.setScene(mainMenu);
@@ -362,9 +362,6 @@ public class Main extends Application {
 				//displays the new top card in the discard pile (the card played by the previous player)
 				layoutDeck.getChildren().add(newGame.getTopCard());
 				
-				//displays the name of the current player
-				layoutHand.getChildren().add(currentPlayerName);
-				
 				//displays the hand of the new current player
 				for(Card c : newGame.getCurrentHand()) {
 					layoutHand.getChildren().add(c);
@@ -382,6 +379,12 @@ public class Main extends Application {
 				layoutHand.getChildren().add(c);
 			}
 		}
+		
+		//displays the name of the current player
+		currentPlayerName = new Text(newGame.getCurrentPlayer().getName());
+		currentPlayerName.setFill(Color.YELLOW);
+		currentPlayerName.setFont(Font.font("Serif", 20));
+		layoutHand.getChildren().add(currentPlayerName);
 	}
 	
 	/**
@@ -414,6 +417,12 @@ public class Main extends Application {
 		layoutDeck.getChildren().remove(newGame.getTopCard());
 		
 		newGame.nextPlayer();
+		
+		//displays the name of the current player
+		currentPlayerName = new Text(newGame.getCurrentPlayer().getName());
+		currentPlayerName.setFill(Color.YELLOW);
+		currentPlayerName.setFont(Font.font("Serif", 20));
+		layoutHand.getChildren().add(currentPlayerName);
 		
 		layoutDeck.getChildren().add(newGame.getTopCard());
 		
