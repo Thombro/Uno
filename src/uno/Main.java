@@ -147,16 +147,24 @@ public class Main extends Application {
 		Button backBtn = new Button("Back");
 		backBtn.setOnAction(e -> window.setScene(mainMenu));
 		
+		Text rulesTitle = new Text("How To Play");
+		rulesTitle.setFont(Font.font("Serif", 25));
+		rulesTitle.setTextAlignment(TextAlignment.CENTER);
+		
+		HBox htpTitle = new HBox(20);
+		htpTitle.getChildren().add(rulesTitle);
+		htpTitle.setAlignment(Pos.BASELINE_CENTER);
+		
 		Text rules =  new Text("UNO is a game where you try to empty your hand before your opponents.\n"
 				+ "Each player is dealt seven cards, the remaining cards forming the draw pile.\n"
 				+ "Afterwards, the top card of the draw pile is turned over to form the discard pile.\n" 
 				+ "The play consists of each player selecting a card from their hand by matching the " 
 				+ "color, number, or word of the top card of the discard pile. A wild card will always work.\n"
-				+ "If a player cannot play any of their cards, they must draw one card from the draw pile.\n "
+				+ "If a player cannot play any of their cards, they must draw one card from the draw pile.\n"
 				+ "If that card fits the sequence they may play it, otherwise their turn is over.\n"
 				+ "The maximum number of cards you can have in your deck is 10. If you have more than ten card, you "
 				+ "must play a card.\n"
-				+ "When you have one card in your hand, you must call Uno. Otherwise you will be automatically drawn "
+				+ "When you have one card in your hand, you must call UNO. Otherwise you will be automatically drawn "
 				+ "two cards.\n"
 				+ "UNO has cards in four colors: red, blue, green, and yellow.\n"
 				+ "It also has fifteen numbers and types: 0-9, wild, wild draw 4, skip, reverse, and draw 2.");
@@ -164,16 +172,20 @@ public class Main extends Application {
 		rules.setWrappingWidth(500);
 		rules.setTextAlignment(TextAlignment.JUSTIFY);
 		
+		HBox rulesLayout = new HBox(20);
+		rulesLayout.getChildren().add(rules);
+		rulesLayout.setAlignment(Pos.CENTER);
+		
 		//creates the background for the "how to play" screen
 		StackPane htpBackground = new StackPane();
-		htpBackground.setStyle("-fx-background-color: LIGHTBLUE;");
+		htpBackground.setStyle("-fx-background-color: LIGHTGREY;");
 		
 		//creates the layout for the instructions and buttons on the "how to play" screen
 		HBox back = new HBox(40);
 		back.getChildren().add(backBtn);
 		
 		VBox ruleLayout = new VBox(50);
-		ruleLayout.getChildren().addAll(rules, back);
+		ruleLayout.getChildren().addAll(htpTitle, rulesLayout, back);
 		
 		htpBackground.getChildren().add(ruleLayout);
 		
@@ -252,6 +264,7 @@ public class Main extends Application {
 		exitContainer = new VBox(20);
 		exitContainer.getChildren().add(endButton);
 		exitContainer.setAlignment(Pos.CENTER);
+		exitContainer.setStyle("-fx-background-color: DARKGREY;");
 		
 		endScene = new Scene(exitContainer, 200, 200);
 		
@@ -379,6 +392,12 @@ public class Main extends Application {
 				//changes the current player to the following player
 				newGame.nextPlayer();
 				
+				//displays the name of the current player
+				currentPlayerName = new Text(newGame.getCurrentPlayer().getName());
+				currentPlayerName.setFill(Color.YELLOW);
+				currentPlayerName.setFont(Font.font("Serif", 20));
+				layoutHand.getChildren().add(currentPlayerName);
+				
 				
 				//displays the new top card in the discard pile (the card played by the previous player)
 				layoutDeck.getChildren().add(newGame.getTopCard());
@@ -396,6 +415,12 @@ public class Main extends Application {
 			
 			layoutDeck.getChildren().add(newGame.getTopCard());
 			
+			//displays the name of the current player
+			currentPlayerName = new Text(newGame.getCurrentPlayer().getName());
+			currentPlayerName.setFill(Color.YELLOW);
+			currentPlayerName.setFont(Font.font("Serif", 20));
+			layoutHand.getChildren().add(currentPlayerName);
+
 			for(Card c : newGame.getCurrentHand()) {
 				layoutHand.getChildren().add(c);
 			}
@@ -406,11 +431,6 @@ public class Main extends Application {
 			exitContainer.getChildren().add(winner);
 			window.setScene(endScene);
 		}
-		//displays the name of the current player
-		currentPlayerName = new Text(newGame.getCurrentPlayer().getName());
-		currentPlayerName.setFill(Color.YELLOW);
-		currentPlayerName.setFont(Font.font("Serif", 20));
-		layoutHand.getChildren().add(currentPlayerName);
 	}
 	
 	/**
@@ -428,6 +448,12 @@ public class Main extends Application {
 		
 		layoutDeck.getChildren().add(newGame.getTopCard());
 		
+		//displays the name of the current player
+		currentPlayerName = new Text(newGame.getCurrentPlayer().getName());
+		currentPlayerName.setFill(Color.YELLOW);
+		currentPlayerName.setFont(Font.font("Serif", 20));
+		layoutHand.getChildren().add(currentPlayerName);
+		
 		for(Card c : newGame.getCurrentHand()) {
 			layoutHand.getChildren().add(c);
 		}
@@ -444,13 +470,14 @@ public class Main extends Application {
 		
 		newGame.nextPlayer();
 		
+		
+		layoutDeck.getChildren().add(newGame.getTopCard());
+		
 		//displays the name of the current player
 		currentPlayerName = new Text(newGame.getCurrentPlayer().getName());
 		currentPlayerName.setFill(Color.YELLOW);
 		currentPlayerName.setFont(Font.font("Serif", 20));
 		layoutHand.getChildren().add(currentPlayerName);
-		
-		layoutDeck.getChildren().add(newGame.getTopCard());
 		
 		for(Card c : newGame.getCurrentHand()) {
 			layoutHand.getChildren().add(c);
