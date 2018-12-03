@@ -137,7 +137,7 @@ public class Main extends Application {
 		background.getChildren().add(menuLayout);
 		
 		
-		mainMenu = new Scene(background, 800, 800);
+		mainMenu = new Scene(background, 800, 650);
 		 
 		//sets up the how to play screen for the gui
 		
@@ -175,7 +175,7 @@ public class Main extends Application {
 		
 		htpBackground.getChildren().add(ruleLayout);
 		
-		howToPlay = new Scene(htpBackground, 800, 800);
+		howToPlay = new Scene(htpBackground, 800, 650);
 		
 		//sets up the screen where the game is actually played
 		
@@ -243,7 +243,7 @@ public class Main extends Application {
 		
 		root.getChildren().addAll(gameLayout);
 	
-		gamePlay = new Scene(root, 800, 800);
+		gamePlay = new Scene(root, 800, 650);
 		
 		//sets first screen as the main menu
 		window.setScene(mainMenu);
