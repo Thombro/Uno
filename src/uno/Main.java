@@ -27,20 +27,21 @@ public class Main extends Application {
 	 * after the game this asks if they want to play a new game.<br>
 	 * if so, it calls setup again
 	 */
-	Stage window;
-	Scene mainMenu;
-	Scene howToPlay;
-	Scene gamePlay;
+	private Stage window;
+	private Scene mainMenu;
+	private Scene howToPlay;
+	private Scene gamePlay;
 	private int numPlayers;
-	RadioButton play4;
-	RadioButton play3;
-	RadioButton play2;
-	HBox layoutDeck;
-	HBox layoutHand;
-	StackPane root;
-	Game newGame;
-	HBox wildButtons;
+	private RadioButton play4;
+	private RadioButton play3;
+	private RadioButton play2;
+	private HBox layoutDeck;
+	private HBox layoutHand;
+	private StackPane root;
+	private Game newGame;
+	private HBox wildButtons;
 	private Card currentVisible;
+	private HBox unoButton;
 	
 	public static void main(String[] args) {
 		boolean gui = false;
@@ -202,8 +203,17 @@ public class Main extends Application {
 		wildButtons.setAlignment(Pos.CENTER);
 		wildButtons.setDisable(true);
 		
+		Button sayUno = new Button("UNO");
 		
-		root.getChildren().addAll(wildButtons, gameLayout);
+		unoButton = new HBox(20);
+		unoButton.getChildren().add(sayUno);
+		unoButton.setAlignment(Pos.CENTER);
+		unoButton.setDisable(true);
+		
+		VBox gameButtons = new VBox(20);
+		gameButtons.getChildren().addAll(wildButtons, unoButton);
+		gameButtons.setAlignment(Pos.CENTER);
+		root.getChildren().addAll(gameButtons, gameLayout);
 	
 		gamePlay = new Scene(root, 800, 800);
 		
@@ -286,7 +296,7 @@ public class Main extends Application {
 
 			if(newGame.isWild()) {
 				wildButtons.setDisable(false);
-			} 
+			}
 			else {
 				layoutHand.getChildren().clear();
 				layoutDeck.getChildren().remove(currentVisible);

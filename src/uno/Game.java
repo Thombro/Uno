@@ -111,6 +111,7 @@ public class Game {
 					gameOver = true;
 				}
 				
+				
 				if(!p.getSaidUno() && p.handSize() == 1) {
 					p.add(deck.drawCard());
 					p.add(deck.drawCard());
@@ -207,7 +208,7 @@ public class Game {
 		}
 		
 		if(colorIndex == 1) {
-			move.setWildColor(Color.rgb(255, 137, 0));
+			move.setWildColor(Color.rgb(0, 194, 84));
 		}
 		
 		if(colorIndex == 2) {
@@ -215,7 +216,7 @@ public class Game {
 		}
 		
 		if(colorIndex == 3) {
-			move.setWildColor(Color.rgb(0, 194, 84));
+			move.setWildColor(Color.rgb(255, 137, 0));
 		}
 		
 		deck.discard(move);
