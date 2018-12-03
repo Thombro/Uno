@@ -343,16 +343,14 @@ public class Game {
 		deck.discard(move);
 		//makes top card on discard pile the wild card that was played
 		topCard = move; 
-		//
+		//calls the next player
+		nextPlayer();
 		if(move.getType() == "dr4") {
-			nextPlayer();
 			Player p2 = players.get(currentPlayer);
 			for(int i = 0; i<4; i++) {
 				p2.add(deck.drawCard());
 			}
 		}
-		//calls the next player
-		nextPlayer();
 		
 	}
 	
