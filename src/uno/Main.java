@@ -186,8 +186,9 @@ public class Main extends Application {
 		layoutHand = new HBox(20);
 		layoutHand.setAlignment(Pos.BOTTOM_CENTER);
 		
-		VBox gameLayout = new VBox(30);
-		gameLayout.getChildren().addAll(layoutDeck, layoutHand);
+		VBox cardLayout = new VBox(30);
+		cardLayout.getChildren().addAll(layoutDeck, layoutHand);
+		cardLayout.setAlignment(Pos.CENTER);
 		
 		Button redWild = new Button("Red");
 		redWild.setOnAction(e -> chooseWild(0));
@@ -213,7 +214,11 @@ public class Main extends Application {
 		VBox gameButtons = new VBox(20);
 		gameButtons.getChildren().addAll(wildButtons, unoButton);
 		gameButtons.setAlignment(Pos.CENTER);
-		root.getChildren().addAll(gameButtons, gameLayout);
+		
+		VBox gameLayout = new VBox(20);
+		gameLayout.getChildren().addAll(cardLayout, gameButtons);
+		
+		root.getChildren().add(gameLayout);
 	
 		gamePlay = new Scene(root, 800, 800);
 		
