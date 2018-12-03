@@ -141,8 +141,6 @@ public class Main extends Application {
 				+ "color, number, or word of the top card of the discard pile. A wild card will always work.\n"
 				+ "If a player cannot play any of their cards, they must draw one card from the draw pile.\n "
 				+ "If that card fits the sequence they may play it, otherwise their turn is over.\n"
-				+ "If you play a wild card, select the color you want it to be using the left and right arrow keys "
-				+ "and space bar.\n"
 				+ "The maximum number of cards you can have in your deck is 10. If you have more than ten card, you "
 				+ "must play a card.\n"
 				+ "When you have one card in your hand, you must call Uno. Otherwise you will be automatically drawn "
@@ -170,10 +168,10 @@ public class Main extends Application {
 		root = new StackPane();
 		root.setStyle("-fx-background-color: BLACK;");
 		
-		/*
+		
 		Button exit = new Button("Exit Game");
-		exit.setOnAction(e -> window.setScene(mainMenu));
-		exit.setAlignment(Pos.BOTTOM_LEFT);*/
+		exit.setOnMouseClicked(e -> window.setScene(mainMenu));
+		exit.setAlignment(Pos.TOP_LEFT);
 		
 		Button draw = new Button("Draw");
 		draw.setOnAction(e -> drawCard());
@@ -191,13 +189,13 @@ public class Main extends Application {
 		cardLayout.setAlignment(Pos.CENTER);
 		
 		Button redWild = new Button("Red");
-		redWild.setOnAction(e -> chooseWild(0));
+		redWild.setOnMouseClicked(e -> chooseWild(0));
 		Button greenWild = new Button("Green");
-		greenWild.setOnAction(e -> chooseWild(1));
+		greenWild.setOnMouseClicked(e -> chooseWild(1));
 		Button blueWild = new Button("Blue");
-		blueWild.setOnAction(e -> chooseWild(2));
+		blueWild.setOnMouseClicked(e -> chooseWild(2));
 		Button yellowWild = new Button("Yellow");
-		yellowWild.setOnAction(e -> chooseWild(3));
+		yellowWild.setOnMouseClicked(e -> chooseWild(3));
 		
 		wildButtons = new HBox(20);
 		wildButtons.getChildren().addAll(redWild, greenWild, blueWild, yellowWild);
@@ -218,7 +216,7 @@ public class Main extends Application {
 		VBox gameLayout = new VBox(20);
 		gameLayout.getChildren().addAll(cardLayout, gameButtons);
 		
-		root.getChildren().add(gameLayout);
+		root.getChildren().addAll(exit, gameLayout);
 	
 		gamePlay = new Scene(root, 800, 800);
 		
