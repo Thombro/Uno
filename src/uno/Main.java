@@ -20,13 +20,14 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 
-
+/**
+ * Plays one game of UNO on either the console or the gui
+ * Contains most of the gui methods
+ * @author Isabella Patnode, Thomas Hutchins, Daniel Supplee, Grace Badger, Jedidiah Madubuko, 
+ *
+ */
 public class Main extends Application {
-	/**
-	 * creates a new Game and calls setup()<br>
-	 * after the game this asks if they want to play a new game.<br>
-	 * if so, it calls setup again
-	 */
+	
 	private Stage window;
 	private Scene mainMenu;
 	private Scene howToPlay;
@@ -47,6 +48,7 @@ public class Main extends Application {
 		boolean gui = false;
 		boolean incorrectEnter = true;
 		Scanner scnr = new Scanner(System.in);
+		//allows players to choose whether they want to play on the gui or console
 		while(incorrectEnter) {
 			System.out.println("Please enter c to play on the console or g to play on the graphic user interface.");
 			char choice = scnr.next().charAt(0);
@@ -60,31 +62,36 @@ public class Main extends Application {
 			}
 		}
 		
-		
+		//Launches gui if players want to play on the gui
 		if(gui) {
 			launch(args);
 		}
+		//Runs the game on the console if players want to play on the console
 		else {
 			Game g = new Game();
 			g.consolePlayTurn();
 		}
 	}
-
+	
+	/**
+	 * Primary method for creating the gui
+	 */
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		window = primaryStage;
 		
-		//Main Menu
-		
+		//creates the main menu for the gui
 		Text gameName = new Text("UNO");
 		gameName.setFont(Font.font("Serif", 100));
 		gameName.setFill(Color.YELLOW);
 		gameName.setStrokeWidth(1.5);
 		gameName.setStroke(Color.BLACK);
 		
+		//sets up the game when the start button is pressed
 		Button startBtn = new Button("Start Game");
 		startBtn.setOnAction(e -> setupGame());
 		
+		//takes players to the instructions when pressed
 		Button ruleBtn = new Button("How to Play");
 		ruleBtn.setOnAction(e -> window.setScene(howToPlay));
 		
@@ -93,8 +100,10 @@ public class Main extends Application {
 		
 		final ToggleGroup groupOfPlayers = new ToggleGroup();
 		
+		//the buttons the players use to select the number of players that are playing
 		play2 = new RadioButton("Two Player");
 		play2.setToggleGroup(groupOfPlayers);
+		//automatically sets the game to two players unless otherwise specified
 		play2.setSelected(true);
 		
 		play3 = new RadioButton("Three Player");
@@ -104,11 +113,11 @@ public class Main extends Application {
 		play4.setToggleGroup(groupOfPlayers);
 		
 		
-		newGame = new Game(numPlayers);
-		
+		//sets the background design for the main menu
 		StackPane background = new StackPane();
 		background.setStyle("-fx-background-color: DARKRED;");
 		
+		//centers the text and buttons created for the main menu
 		HBox gameTitle = new HBox(20);
 		gameTitle.getChildren().add(gameName);
 		gameTitle.setAlignment(Pos.CENTER);
@@ -129,9 +138,10 @@ public class Main extends Application {
 		
 		
 		mainMenu = new Scene(background, 800, 800);
+		 
+		//sets up the how to play screen for the gui
 		
-		//How To Play 
-		
+		//returns to the main menu when pressed
 		Button backBtn = new Button("Back");
 		backBtn.setOnAction(e -> window.setScene(mainMenu));
 		
@@ -152,9 +162,11 @@ public class Main extends Application {
 		rules.setWrappingWidth(500);
 		rules.setTextAlignment(TextAlignment.JUSTIFY);
 		
+		//creates the background for the "how to play" screen
 		StackPane htpBackground = new StackPane();
 		htpBackground.setStyle("-fx-background-color: LIGHTBLUE;");
 		
+		//creates the layout for the instructions and buttons on the "how to play" screen
 		HBox back = new HBox(40);
 		back.getChildren().add(backBtn);
 		
@@ -165,30 +177,37 @@ public class Main extends Application {
 		
 		howToPlay = new Scene(htpBackground, 800, 800);
 		
+		//sets up the screen where the game is actually played
 		
+		//sets the background for the screen where the game is played
 		root = new StackPane();
 		root.setStyle("-fx-background-color: BLACK;");
 		
-		
+		//returns to the main menu when pressed
 		Button exit = new Button("Exit Game");
 		exit.setOnMouseClicked(e -> window.setScene(mainMenu));
 		exit.setAlignment(Pos.TOP_LEFT);
 		
+		//current players draws a card when pressed
 		Button draw = new Button("Draw");
 		draw.setOnAction(e -> drawCard());
 		draw.setAlignment(Pos.CENTER);
 		
+		//layout for draw button
 		layoutDeck = new HBox(20);
 		layoutDeck.setAlignment(Pos.CENTER);
 		layoutDeck.getChildren().add(draw);
 		
+		//displays the cards in the current player's hand
 		layoutHand = new HBox(20);
 		layoutHand.setAlignment(Pos.BOTTOM_CENTER);
 		
+		//designs the display of the cards in the discard deck and hand
 		VBox cardLayout = new VBox(30);
 		cardLayout.getChildren().addAll(layoutDeck, layoutHand);
 		cardLayout.setAlignment(Pos.CENTER);
 		
+		//creates color option buttons that can be pressed when a wild card is selected
 		Button redWild = new Button("Red");
 		redWild.setOnMouseClicked(e -> chooseWild(0));
 		Button greenWild = new Button("Green");
@@ -201,19 +220,24 @@ public class Main extends Application {
 		wildButtons = new HBox(20);
 		wildButtons.getChildren().addAll(redWild, greenWild, blueWild, yellowWild);
 		wildButtons.setAlignment(Pos.CENTER);
+		//disables the color option buttons for the wild card until a wild card is selected
 		wildButtons.setDisable(true);
 		
+		//creates uno button that is pressed when current player has one card remaining after their turn
 		Button sayUno = new Button("UNO");
 		
 		unoButton = new HBox(20);
 		unoButton.getChildren().add(sayUno);
 		unoButton.setAlignment(Pos.CENTER);
+		//disables uno button until current player has one card remaining after their turn
 		unoButton.setDisable(true);
 		
+		//designs the layout of the buttons associated with the game of Uno
 		VBox gameButtons = new VBox(20);
 		gameButtons.getChildren().addAll(wildButtons, unoButton);
 		gameButtons.setAlignment(Pos.CENTER);
 		
+		//designs the layout of the entire game screen
 		VBox gameLayout = new VBox(20);
 		gameLayout.getChildren().addAll(cardLayout, gameButtons);
 		
@@ -221,12 +245,16 @@ public class Main extends Application {
 	
 		gamePlay = new Scene(root, 800, 800);
 		
+		//sets first screen as the main menu
 		window.setScene(mainMenu);
 		window.setTitle("UNO");
 		window.show();
 	
-	}	
-
+	}
+	
+	/**
+	 * Prepares the Uno game for play
+	 */
 	private void setupGame() {
 		if(play2.isSelected()) {
 			numPlayers = 2;
@@ -240,17 +268,22 @@ public class Main extends Application {
 		
 		window.setScene(gamePlay);
 		
+		//creates a new Uno game with the number of players selected
 		newGame = new Game(numPlayers);
 		
 		newGame.setup();
 		
+		//displays the card on top of the discard pile
 		layoutDeck.getChildren().add(newGame.getTopCard());
 		
+		//displays each card in the current player's hand
 		for(Card c : newGame.getCurrentHand()) {
 			layoutHand.getChildren().add(c);
 		}
 			
-		//For the player to play
+		//a player selects the card he desires to play by pressing the number on the keyboard that corresponds
+		//to the placement of the card
+		//plays the card selected through the keyboard
 		gamePlay.addEventHandler(KeyEvent.KEY_PRESSED, (key) -> {
 			if (key.getCode() == KeyCode.DIGIT1) {
 				playCard(0);
@@ -284,6 +317,7 @@ public class Main extends Application {
 			}
 			});
 		
+		//prints following text if current player has won the game
 		if(newGame.hasWon()) {
 			Text winner = new Text(newGame.getCurrentPlayer() + " has won!!!");
 		
@@ -291,29 +325,43 @@ public class Main extends Application {
 		}
 	}
 	
+	/**
+	 * Performs the current player's turn after the desired card is selected
+	 * @param cardIndex the index of the selected card in the row of cards in the player's hand
+	 */
 	private void playCard(int cardIndex) {
+		
 		currentVisible = newGame.getTopCard();
 		
+		//plays the current player's turn for the selected card
 		newGame.guiPlayTurn(cardIndex);
 		
+		//completes the current player's turn if the selected card can be played
 		if(newGame.isValidCard()) {
-
+			
+			//enables the color option buttons if a wild card is selected
 			if(newGame.isWild()) {
 				wildButtons.setDisable(false);
 			}
 			else {
+				//clears the current player's hand
 				layoutHand.getChildren().clear();
+				//clears the current top card
 				layoutDeck.getChildren().remove(currentVisible);
 				
+				//changes the current player to the following player
 				newGame.nextPlayer();
 				
+				//displays the new top card in the discard pile (the card played by the previous player)
 				layoutDeck.getChildren().add(newGame.getTopCard());
 				
+				//displays the hand of the new current player
 				for(Card c : newGame.getCurrentHand()) {
 					layoutHand.getChildren().add(c);
 				}
 			}
 		}
+		//if card can not be played the current player repeats their turn
 		else {
 			layoutHand.getChildren().clear();
 			layoutDeck.getChildren().remove(currentVisible);
@@ -326,7 +374,12 @@ public class Main extends Application {
 		}
 	}
 	
+	/**
+	 * Displays the cards for when a wild card is played
+	 * @param colorIndex the color that the player wants the wild to be
+	 */
 	private void chooseWild(int colorIndex) {
+		//disables the color option buttons after the current player selects the color of the wild
 		wildButtons.setDisable(true);
 		
 		layoutHand.getChildren().clear();
@@ -341,6 +394,9 @@ public class Main extends Application {
 		}
 	}
 	
+	/**
+	 * Completes the turn of the current player when the draw button is selected
+	 */
 	private void drawCard() {
 		newGame.drawCard();
 		
