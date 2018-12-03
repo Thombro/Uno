@@ -16,6 +16,8 @@ import javafx.scene.text.TextAlignment;
 public class Card extends Parent{
 	private Color color;
 	private String type;
+	private Rectangle bg;
+	
 	/**
 	 * sets the color and type
 	 * @param color 'y'(yellow), 'g'(green), 'b'(blue), or 'r'(red), or 'w'(wild)
@@ -25,7 +27,7 @@ public class Card extends Parent{
 		this.color = color;
 		this.type = type;
 	
-		Rectangle bg = new Rectangle(80,100);
+		bg = new Rectangle(80,100);
 		bg.setArcHeight(20);
 		bg.setFill(color);
 		Text text = new Text(type);
@@ -35,6 +37,7 @@ public class Card extends Parent{
 		text.setFill(Color.BLACK);
 		getChildren().add(new StackPane(bg,text));
 	}
+	
 	/**
 	 * checks if this Card is a kind of wild, the same color as other, or the same type as other
 	 * @param other : the other Card
@@ -44,13 +47,14 @@ public class Card extends Parent{
 		if(type=="wild" || type=="dr4") {
 			return true;
 		}
-		else if(this.type.equals(other.type)||this.color.equals(other.color)) {
+		else if(this.type.equals(other.type) || this.color.equals(other.color)) {
 			return true;
 		}
 		else {
 			return false;
 		}
 	}
+	
 	/**
 	 * changes this Card's color if it is a wild card
 	 * @param color : the color to change the card to
@@ -58,24 +62,27 @@ public class Card extends Parent{
 	public void setWildColor(Color color) {
 		if(this.type == "wild" || type=="dr4") {
 			this.color = color;
+			bg.setFill(this.color);
 		}
 	}
+	
 	public String getType() {
 		return type;
 	}
+	
 	@Override
 	public String toString() {
 		if(color.equals(Color.BLUE)) {
-			return "blue "+type;
+			return "blue "+ type;
 		}
 		else if(color.equals(Color.RED)) {
-			return "red "+type;
+			return "red "+ type;
 		}
 		else if(color.equals(Color.GREEN)) {
-			return "green "+type;
+			return "green "+ type;
 		}
 		else if(color.equals(Color.YELLOW)) {
-			return "yellow "+type;
+			return "yellow "+ type;
 		}
 		else {
 			return type;

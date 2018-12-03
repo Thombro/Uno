@@ -5,7 +5,6 @@ import java.util.Scanner;
 
 import javafx.application.Application;
 import javafx.geometry.Pos;
-import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
@@ -41,6 +40,7 @@ public class Main extends Application {
 	StackPane root;
 	Game newGame;
 	HBox wildButtons;
+	private Card currentVisible;
 	
 	public static void main(String[] args) {
 		boolean gui = false;
@@ -138,8 +138,14 @@ public class Main extends Application {
 				+ "Afterwards, the top card of the draw pile is turned over to form the discard pile.\n" 
 				+ "The play consists of each player selecting a card from their hand by matching the " 
 				+ "color, number, or word of the top card of the discard pile. A wild card will always work.\n"
-				+ "If a player cannot play any of their cards, they must draw one card from the draw pile "
-				+ "if that card fits the sequence they may play it, otherwise their turn is over.\n"
+				+ "If a player cannot play any of their cards, they must draw one card from the draw pile.\n "
+				+ "If that card fits the sequence they may play it, otherwise their turn is over.\n"
+				+ "If you play a wild card, select the color you want it to be using the left and right arrow keys "
+				+ "and space bar.\n"
+				+ "The maximum number of cards you can have in your deck is 10. If you have more than ten card, you "
+				+ "must play a card.\n"
+				+ "When you have one card in your hand, you must call Uno. Otherwise you will be automatically drawn "
+				+ "two cards.\n"
 				+ "UNO has cards in four colors: red, blue, green, and yellow.\n"
 				+ "It also has fifteen numbers and types: 0-9, wild, wild draw 4, skip, reverse, and draw 2.");
 		rules.setFont(Font.font("Serif", 20));
@@ -272,19 +278,31 @@ public class Main extends Application {
 	}
 	
 	private void playCard(int cardIndex) {
+		currentVisible = newGame.getTopCard();
 		
 		newGame.playTurn(cardIndex);
 		
-		if(newGame.isWild()) {
-			wildButtons.setDisable(false);
-		} 
-		
-		else {
-			
-			layoutHand.getChildren().clear();
-			layoutDeck.getChildren().remove(newGame.getTopCard());
+		if(newGame.isValidCard()) {
 
-			newGame.nextPlayer();
+			if(newGame.isWild()) {
+				wildButtons.setDisable(false);
+			} 
+			else {
+				layoutHand.getChildren().clear();
+				layoutDeck.getChildren().remove(currentVisible);
+				
+				newGame.nextPlayer();
+				
+				layoutDeck.getChildren().add(newGame.getTopCard());
+				
+				for(Card c : newGame.getCurrentHand()) {
+					layoutHand.getChildren().add(c);
+				}
+			}
+		}
+		else {
+			layoutHand.getChildren().clear();
+			layoutDeck.getChildren().remove(currentVisible);
 			
 			layoutDeck.getChildren().add(newGame.getTopCard());
 			
@@ -292,12 +310,13 @@ public class Main extends Application {
 				layoutHand.getChildren().add(c);
 			}
 		}
-		
 	}
 	
 	private void chooseWild(int colorIndex) {
+		wildButtons.setDisable(true);
+		
 		layoutHand.getChildren().clear();
-		layoutDeck.getChildren().remove(newGame.getTopCard());
+		layoutDeck.getChildren().remove(currentVisible);
 		
 		newGame.playWild(colorIndex);
 		

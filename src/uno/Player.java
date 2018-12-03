@@ -14,6 +14,7 @@ public class Player {
 	private ArrayList<Card> hand;//holds the player's cards, starting with 7
 	private String name;
 	private boolean saidUno;//default & at the end of every turn false, if the player presses the uno button true
+	
 	public Player(String name) {
 		this.name = name;
 		hand = new ArrayList<>();
@@ -96,16 +97,19 @@ public class Player {
 					hand.remove(c);
 					if(!askUno(sc)) {
 						return c;
-					}else {
+					}
+					else {
 						hand.add(c);
 						return null;
 					}
 				}
 			}
-		}else {
+		}
+		else {
 			return null;
 		}
 	}
+	
 	/**
 	 * adds the card to the player's hand
 	 * @param c : the card
@@ -115,27 +119,35 @@ public class Player {
 			hand.add(c);
 		}
 	}
+	
 	public void remove(int index) {
 		hand.remove(index);
 	}
+	
 	public int handSize() {
 		return hand.size();
 	}
+	
 	public String getName() {
 		return name;
 	}
+	
 	public boolean getSaidUno() {
 		return saidUno;
 	}
+	
 	public void setSaidUno(boolean unoSaid) {
 		saidUno = unoSaid;
 	}
+	
 	private void printHand() {
 		System.out.println("Your hand:");
 		System.out.print("    ");
+		
 		for(Card c : hand) {
 			System.out.print(c+"    ");
 		}
+		
 		System.out.println();
 	}
 	/**
@@ -152,14 +164,17 @@ public class Player {
 			System.out.println("do you want to say uno (u), or end your turn (any character)");
 			System.out.println("saying uno when you don't have only one card will cause you to draw a card.");
 			char answer = sc.next().charAt(0);
+			
 			if (answer == 'u') {
 				if(hand.size() <= 1) {
 					saidUno = true;
 					return false;
-				}else {
+				}
+				else {
 					return true;
 				}
 			}
+			
 			return false;
 		}
 	}

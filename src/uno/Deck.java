@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.Stack;
 
 import javafx.scene.paint.Color;
+
 /**
  * holds the discard pile and draw pile from an UNO game
  * @author Tommy, Daniel, Jed, Izzy, and Grace
@@ -12,6 +13,7 @@ import javafx.scene.paint.Color;
 public class Deck {
 	private Stack<Card> drawPile;//if they are stacks in real life, they are stacks here
 	private Stack<Card> discardPile;//they are also stacks so we can get the top card
+	
 	/**
 	 * this should initialize the draw pile and the discard pile, and then flip the initial card<br>
 	 * the draw pile should hold in each color:
@@ -32,7 +34,7 @@ public class Deck {
 			drawPile.add(new Card(colors[c], "0"));
 //			Loops through each number
 			for (int i = 1; i <= 9; i++) {
-				drawPile.add(new Card(colors[c], i+""));
+				drawPile.add(new Card(colors[c], i + ""));
 			}
 			for (int i = 0; i < 2; i++) {
 				drawPile.add(new Card(colors[c], "skip"));
@@ -41,7 +43,8 @@ public class Deck {
 		}
 		for (int i = 0; i < 4; i++) {
 			drawPile.add(new Card(colors[4], "wild"));
-			drawPile.add(new Card(colors[4], "dr4"));
+			drawPile.add(new Card(colors[4], "wild"));
+//			drawPile.add(new Card(colors[4], "dr4"));
 		}
 		Collections.shuffle(drawPile);
 		flipInitialCard();
@@ -52,10 +55,12 @@ public class Deck {
 	 */
 	private void flipInitialCard() {
 		discardPile.add(drawPile.pop());
+		
 		while(discardPile.peek().getType() == "wild" || discardPile.peek().getType() == "dr4") {
 			discardPile.add(drawPile.pop());
 		}
 	}
+	
 	/**
 	 * removes and returns the top Card from the draw pile<br>
 	 * if there are no cards in the draw pile:
@@ -76,20 +81,24 @@ public class Deck {
 			discardPile = new Stack<Card>();
 			discardPile.add(drawPile.pop());
 			Collections.shuffle(drawPile);
+			
 			if(!drawPile.isEmpty()) {
 				return drawPile.pop();
-			}else{
+			}
+			else{
 				System.out.println("draw pile is empty");
 				return null;
 			}
 		}
 	}
+	
 	/**
 	 * @return top card of discard pile
 	 */
 	public Card peekDiscard() {
 		return discardPile.peek();
 	}
+	
 	/**
 	 * adds a card to the discard pile
 	 * @param c the card

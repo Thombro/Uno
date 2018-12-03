@@ -24,8 +24,8 @@ public class Game {
 	private boolean console;
 	private boolean wildCard;
 	private Card move;
-	
 	private boolean gameOver;
+	private boolean validCard;
 	
 	
 	public Game() {
@@ -43,6 +43,7 @@ public class Game {
 		console = false;
 		gameOver = false;
 	}
+	
 	/**
 	 * in the game loop:
 	 * <ul>
@@ -52,62 +53,74 @@ public class Game {
 	 * </ul>
 	 */
 	public void playTurn(int index) {
+		validCard = false;
+		
 		wildCard = false;
 		
 		Player p = players.get(currentPlayer);
 		
-		move = p.getCard(index);
-		//move.setWildColor(p.getWildColor());
-			if(move.getType() == "rev") {
-				if(players.size() == 2) {
+		if(index < p.getHand().size()) {
+		
+			if(p.getCard(index).canPlayOn(topCard)) {
+				
+				validCard = true;
+			
+				move = p.getCard(index);
+			
+				if(move.getType() == "rev") {
+					if(players.size() == 2) {
+						nextPlayer();
+					}
+					
+					else {
+						direction = direction*-1;
+					}
+				}
+				
+				if(move.getType() == "skip") {
 					nextPlayer();
 				}
 				
-				else {
-					direction = direction*-1;
-				}
-			}
-			
-			if(move.getType() == "skip") {
-				nextPlayer();
-			}
-			
-			if(move.getType() == "dr2") {
-				nextPlayer();
-				Player p2 = players.get(currentPlayer);
-				p2.add(deck.drawCard());
-				p2.add(deck.drawCard());
-			}
-			
-			else if(move.getType() == "wild") {
-				wildCard = true;
-			}
-			
-			else if(move.getType() == "dr4") {
-				wildCard = true;
-				nextPlayer();
-				Player p2 = players.get(currentPlayer);
-				for(int i = 0; i<4; i++) {
+				if(move.getType() == "dr2") {
+					nextPlayer();
+					Player p2 = players.get(currentPlayer);
+					p2.add(deck.drawCard());
 					p2.add(deck.drawCard());
 				}
+				
+				else if(move.getType() == "wild") {
+					wildCard = true;
+				}
+				
+				else if(move.getType() == "dr4") {
+					wildCard = true;
+					nextPlayer();
+					Player p2 = players.get(currentPlayer);
+					for(int i = 0; i<4; i++) {
+						p2.add(deck.drawCard());
+					}
+				}
+				p.remove(index);
+				if (!wildCard) {
+					deck.discard(move);
+					topCard = move; 
+				}
+				
+				if(p.handSize() == 0) {
+					System.out.println("Congratulations " + p.getName() + ", you have won the game!");
+					gameOver = true;
+				}
+				
+				if(!p.getSaidUno() && p.handSize() == 1) {
+					p.add(deck.drawCard());
+					p.add(deck.drawCard());
+				}
+				
+				p.setSaidUno(false);
 			}
-			p.remove(index);
-			deck.discard(move);
-			topCard = move;
-		
-		if(p.handSize() == 0) {
-			System.out.println("Congratulations " + p.getName() + ", you have won the game!");
-			gameOver = true;
 		}
-		
-		if(!p.getSaidUno() && p.handSize() == 1) {
-			p.add(deck.drawCard());
-			p.add(deck.drawCard());
-		}
-		
-		p.setSaidUno(false);
-		
 	}
+	
 	/**
 	 * prints the rules
 	 * gets the number of players
@@ -154,7 +167,7 @@ public class Game {
 		return gameOver;
 	}
 	
-	//DONT CHANGE FOR GUI
+	
 	public void nextPlayer() {
 		currentPlayer = currentPlayer + direction;
 		
@@ -205,7 +218,13 @@ public class Game {
 			move.setWildColor(Color.rgb(0, 194, 84));
 		}
 		
+		deck.discard(move);
+		topCard = move; 
 		nextPlayer();
 		
+	}
+	
+	public boolean isValidCard() {
+		return validCard;
 	}
 }
