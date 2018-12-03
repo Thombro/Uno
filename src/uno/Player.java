@@ -34,7 +34,7 @@ public class Player {
 	 */
 	public Card getPlayerMove(Card top, Scanner sc) {
 		System.out.println("\nIt is your turn, "+name+"\n");
-		System.out.println("the top card is a "+top+"\n");
+		System.out.println("the top card is a "+ top.toString() +"\n");
 		printHand();
 		char answer = ' ';
 		while(answer != 'm' && answer != 'd') {
@@ -52,7 +52,7 @@ public class Player {
 				}
 			}
 			for(int i=0; i<temp.size(); i++) {
-				System.out.println((i+1)+". "+temp.get(i));
+				System.out.println((i+1)+". "+temp.get(i).toString());
 			}
 			if(temp.size() == 0) {
 				System.out.println("no cards to play, drawing a card");
@@ -82,16 +82,16 @@ public class Player {
 							sc.nextLine();
 						}
 						if(answer == 'b') {
-							c.setWildColor(Color.BLUE);
+							c.setWildColor(Color.rgb(8, 122, 177));
 						}
 						if(answer == 'g') {
-							c.setWildColor(Color.GREEN);
+							c.setWildColor(Color.rgb(0, 194, 84));
 						}
 						if(answer == 'r') {
-							c.setWildColor(Color.RED);
+							c.setWildColor(Color.rgb(255, 53, 0));
 						}
 						if (answer == 'y') {
-							c.setWildColor(Color.YELLOW);
+							c.setWildColor(Color.rgb(255, 137, 0));
 						}
 					}
 					hand.remove(c);
@@ -145,7 +145,7 @@ public class Player {
 		System.out.print("    ");
 		
 		for(Card c : hand) {
-			System.out.print(c+"    ");
+			System.out.print(c.toString() + "    ");
 		}
 		
 		System.out.println();
