@@ -41,7 +41,7 @@ public class Main extends Application {
 	private Game newGame;
 	private HBox wildButtons;
 	private Card currentVisible;
-	private HBox unoButton;
+	private HBox unoContainer;
 	private Text currentPlayerName;
 	
 	public static void main(String[] args) {
@@ -224,17 +224,16 @@ public class Main extends Application {
 		wildButtons.setDisable(true);
 		
 		//creates uno button that is pressed when current player has one card remaining after their turn
-		Button sayUno = new Button("UNO");
+		Button unoButton = new Button("UNO");
+		unoButton.setOnMouseClicked(e -> sayUno());
 		
-		unoButton = new HBox(20);
-		unoButton.getChildren().add(sayUno);
-		unoButton.setAlignment(Pos.CENTER);
-		//disables uno button until current player has one card remaining after their turn
-		unoButton.setDisable(true);
+		unoContainer = new HBox(20);
+		unoContainer.getChildren().add(unoButton);
+		unoContainer.setAlignment(Pos.CENTER);
 		
 		//designs the layout of the buttons associated with the game of Uno
 		VBox gameButtons = new VBox(20);
-		gameButtons.getChildren().addAll(wildButtons, unoButton);
+		gameButtons.getChildren().addAll(wildButtons, unoContainer);
 		gameButtons.setAlignment(Pos.CENTER);
 		
 		//designs the layout of the entire game screen
@@ -322,13 +321,6 @@ public class Main extends Application {
 				playCard(9);
 			}
 			});
-		
-		//prints following text if current player has won the game
-		if(newGame.hasWon()) {
-			Text winner = new Text(newGame.getCurrentPlayer().getName() + " has won!!!");
-		
-			root.getChildren().add(winner);
-		}
 	}
 	
 	/**
@@ -429,6 +421,10 @@ public class Main extends Application {
 		for(Card c : newGame.getCurrentHand()) {
 			layoutHand.getChildren().add(c);
 		}
+	}
+	
+	private void sayUno() {
+		newGame.callPlayerUno();
 	}
 	
 	/**

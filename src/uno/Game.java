@@ -354,6 +354,10 @@ public class Game {
 		
 	}
 	
+	public void callPlayerUno() {
+		players.get(currentPlayer).setSaidUno(true);
+	}
+	
 	/**
 	 * @return true if the card selected can be played, false otherwise
 	 */
