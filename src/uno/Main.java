@@ -378,15 +378,15 @@ public class Main extends Application {
 		//plays the current player's turn for the selected card
 		newGame.guiPlayTurn(cardIndex);
 		
-		//changes to exit screen and prints out winner when game is over
-		if (newGame.hasWon()) {
-			Text winner = new Text(newGame.getCurrentPlayer().getName() + " has won!!!");
-			exitContainer.getChildren().add(winner);
-			window.setScene(endScene);
-		}
-		
 		//completes the current player's turn if the selected card can be played
 		if(newGame.isValidCard()) {
+			
+			//changes to exit screen and prints out winner when game is over
+			if (newGame.hasWon()) {
+				Text winner = new Text(newGame.getCurrentPlayer().getName() + " has won!!!");
+				exitContainer.getChildren().add(winner);
+				window.setScene(endScene);
+			}
 			
 			//enables the color option buttons if a wild card is selected
 			if(newGame.isWild()) {

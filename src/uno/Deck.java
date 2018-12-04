@@ -58,10 +58,7 @@ public class Deck {
 	private void flipInitialCard() {
 		discardPile.add(drawPile.pop());
 		
-		while(discardPile.peek().getType() == "wild" || discardPile.peek().getType() == "dr4" 
-		|| discardPile.peek().getType() == "dr2" || discardPile.peek().getType() == "skp" 
-		|| discardPile.peek().getType() == "rev") {
-			
+		while(discardPile.peek().getType() == "wild" || discardPile.peek().getType() == "dr4" ){
 			discardPile.add(drawPile.pop());
 		}
 	}
