@@ -256,7 +256,7 @@ public class Main extends Application {
 		
 		root.getChildren().addAll(gameLayout);
 	
-		gamePlay = new Scene(root, 800, 650);
+		gamePlay = new Scene(root, 850, 650);
 		
 		Button endButton = new Button("End Game");
 		endButton.setOnMouseClicked(e -> window.setScene(mainMenu));
@@ -270,6 +270,8 @@ public class Main extends Application {
 		
 		//sets first screen as the main menu
 		window.setScene(mainMenu);
+		window.sizeToScene();
+		window.centerOnScreen();
 		window.setTitle("UNO");
 		window.show();
 	
@@ -376,6 +378,13 @@ public class Main extends Application {
 		//plays the current player's turn for the selected card
 		newGame.guiPlayTurn(cardIndex);
 		
+		//changes to exit screen and prints out winner when game is over
+		if (newGame.hasWon()) {
+			Text winner = new Text(newGame.getCurrentPlayer().getName() + " has won!!!");
+			exitContainer.getChildren().add(winner);
+			window.setScene(endScene);
+		}
+		
 		//completes the current player's turn if the selected card can be played
 		if(newGame.isValidCard()) {
 			
@@ -425,11 +434,6 @@ public class Main extends Application {
 				layoutHand.getChildren().add(c);
 			}
 			
-		}
-		if (newGame.hasWon()) {
-			Text winner = new Text(newGame.getCurrentPlayer().getName() + " has won!!!");
-			exitContainer.getChildren().add(winner);
-			window.setScene(endScene);
 		}
 	}
 	
@@ -484,6 +488,9 @@ public class Main extends Application {
 		}
 	}
 	
+	/**
+	 * the boolean method callPlayerUno in the game class returns true
+	 */
 	private void sayUno() {
 		newGame.callPlayerUno();
 	}

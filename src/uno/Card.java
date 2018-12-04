@@ -11,7 +11,7 @@ import javafx.scene.text.TextAlignment;
 
 /**
  * holds the type & color of an UNO card
- * @author Tommy, Daniel, Jed, Izzy, and Grace
+ * @author Isabella Patnode, Thomas Hutchins, Daniel Supplee, Grace Badger, Jedidiah Madubuko
  */
 public class Card extends Parent{
 	private Color color;
@@ -26,7 +26,8 @@ public class Card extends Parent{
 	public Card(Color color, String type) {
 		this.color = color;
 		this.type = type;
-	
+		
+		//creates the display of each card for the gui
 		bg = new Rectangle(80,100);
 		bg.setArcHeight(20);
 		bg.setFill(color);
@@ -66,10 +67,16 @@ public class Card extends Parent{
 		}
 	}
 	
+	/**
+	 * @return what type the card is
+	 */
 	public String getType() {
 		return type;
 	}
 	
+	/**
+	 * modifies the toString method for each color and type
+	 */
 	@Override
 	public String toString() {
 		if(color.equals(Color.rgb(8, 122, 177))) {

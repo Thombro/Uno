@@ -8,68 +8,69 @@ import javafx.scene.paint.Color;
 
 /**
  * holds the discard pile and draw pile from an UNO game
- * @author Tommy, Daniel, Jed, Izzy, and Grace
+ * @author Isabella Patnode, Thomas Hutchins, Daniel Supplee, Grace Badger, Jedidiah Madubuko
  */
 public class Deck {
-	private Stack<Card> drawPile;//if they are stacks in real life, they are stacks here
-	private Stack<Card> discardPile;//they are also stacks so we can get the top card
+	//if they are stacks in real life, they are stacks here
+	private Stack<Card> drawPile;
+	//they are also stacks so we can get the top card
+	private Stack<Card> discardPile;
 	
 	/**
-	 * this should initialize the draw pile and the discard pile, and then flip the initial card<br>
-	 * the draw pile should hold in each color:
-	 * <ul>
-	 * 		one 0 card, two of 1-9; two Draw Two cards;<br>
-	 * 		two Skip cards; and two Reverse cards.
-	 * </ul>
-	 * the draw pile should also hold four Wild cards and four Wild Draw Four cards
+	 * Initializes the draw and discard piles, the flips the initial card <br>
+	 * The draw pile holds: one 0 card, two of 1-9, two Draw Two cards, two Skip cards, and 
+	 * two Reverse cards in each color, four Wild cards, and four Wild Draw Four cards
 	 */
 	Deck(){
 		drawPile = new Stack<>();
 		discardPile = new Stack<>();
 		
+		//sets the four colors possible and wild as grey
 		Color[] colors = {Color.rgb(255, 53, 0), Color.rgb(255, 137, 0), Color.rgb(8, 122, 177), Color.rgb(0, 194, 84), Color.rgb(120, 120, 120)};
 		
-//		Loops through each color
+		//Creates each card
+		//Loops through each color
 		for (int c = 0; c < 4; c++) {
 			drawPile.add(new Card(colors[c], "0"));
-//			Loops through each number
+			//Loops through each number
 			for (int i = 1; i <= 9; i++) {
 				drawPile.add(new Card(colors[c], i + ""));
 			}
 			for (int i = 0; i < 2; i++) {
 				drawPile.add(new Card(colors[c], "skip"));
 				drawPile.add(new Card(colors[c], "rev"));
+				drawPile.add(new Card(colors[c], "dr2"));
 			}
 		}
 		for (int i = 0; i < 4; i++) {
-//			drawPile.add(new Card(colors[4], "wild"));
-			drawPile.add(new Card(colors[4], "dr4"));
+			drawPile.add(new Card(colors[4], "wild"));
 			drawPile.add(new Card(colors[4], "dr4"));
 		}
+		//shuffles the cards in the draw pile
 		Collections.shuffle(drawPile);
 		flipInitialCard();
 	}
+	
 	/**
 	 * moves a Card from the the draw pile to the discard pile, 
-	 * if it's type is wild then it will move a new card to replace it
+	 * if type any type but a number, it will draw a new card
 	 */
 	private void flipInitialCard() {
 		discardPile.add(drawPile.pop());
 		
-		while(discardPile.peek().getType() == "wild" || discardPile.peek().getType() == "dr4") {
+		while(discardPile.peek().getType() == "wild" || discardPile.peek().getType() == "dr4" 
+		|| discardPile.peek().getType() == "dr2" || discardPile.peek().getType() == "skp" 
+		|| discardPile.peek().getType() == "rev") {
+			
 			discardPile.add(drawPile.pop());
 		}
 	}
 	
 	/**
-	 * removes and returns the top Card from the draw pile<br>
+	 * removes and returns the top Card from the draw pile <br>
 	 * if there are no cards in the draw pile:
-	 * <ul>
-	 * 		it will set the draw pile pointer to the discard pile pointer,<br>
-	 * 		then it will set the discard pile to a new Stack<br>
-	 * 		then it will shuffle the draw pile
-	 * 		then it will draw & return the Card
-	 * </ul>
+	 * 		it sets the draw pile pointer to the discard pile pointer, sets the discard pile to a new Stack, 
+	 * 		shuffles the draw pile, and draws and returns the drawn card
 	 * @return the card
 	 */
 	public Card drawCard() {
@@ -77,7 +78,7 @@ public class Deck {
 			return drawPile.pop();
 		}
 		else {
-			drawPile=discardPile;
+			drawPile = discardPile;
 			discardPile = new Stack<Card>();
 			discardPile.add(drawPile.pop());
 			Collections.shuffle(drawPile);

@@ -131,6 +131,10 @@ public class Game {
 				p.add(deck.drawCard());
 				p.add(deck.drawCard());
 			}
+			//gives the player a card if they hit uno and have more than one card
+			if(p.getSaidUno() && p.handSize() > 1){
+				p.add(deck.drawCard());
+			}
 			
 			p.setSaidUno(false);
 			nextPlayer();
@@ -354,6 +358,9 @@ public class Game {
 		
 	}
 	
+	/**
+	 * called when player has called UNO
+	 */
 	public void callPlayerUno() {
 		players.get(currentPlayer).setSaidUno(true);
 	}
